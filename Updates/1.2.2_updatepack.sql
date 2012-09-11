@@ -259,17 +259,9 @@ INSERT INTO gossip_scripts (id, command, datalong, datalong2, comments) VALUES
 DELETE FROM creature_loot_template where entry=11502 AND item=21110;
 INSERT INTO creature_loot_template VALUES
 (11502, 21110, 100, 0, 1, 1, 9, 8620, 0);
--- Towers of Certain Doom
-DELETE FROM spell_script_target WHERE entry=49625;
-INSERT INTO spell_script_target VALUES
-(49625, 1, 24087),
-(49625, 1, 24092),
-(49625, 1, 24093),
-(49625, 1, 24094);
 -- missing graveyards
-DELETE FROM game_graveyard_zone WHERE  ghost_zone IN (2677, 3702, 3714, 3968, 4100);
+DELETE FROM game_graveyard_zone WHERE  ghost_zone IN (2677, 3702, 3714, 3968);
 INSERT INTO game_graveyard_zone VALUES
-(1249, 4100, 0), -- The Culling of Stratholme
 (1258, 3968, 0), -- Lorderon PvP
 (1259, 3968, 0), -- Lorderon PvP
 (1260, 3968, 0), -- Lorderon PvP
@@ -277,8 +269,7 @@ INSERT INTO game_graveyard_zone VALUES
 (919,  3714,   67), -- The Shattered Halls  Horde
 (939,  3702, 0), -- Blade's Edge Arena, Team 1
 (940,  3702, 0), -- Blade's Edge Arena, Team 2
-(971,  3702, 0), -- Blades Edge - PvP - Arena Graveyard
-(1469, 2677, 0); -- Blackwing Lair
+(971,  3702, 0); -- Blades Edge - PvP - Arena Graveyard
 
 DELETE FROM npc_trainer WHERE entry IN (1681, 1701, 3001, 3137, 3175, 3357, 3555, 4254, 4598, 5392, 5513, 6297, 8128, 16663, 16752, 17488, 18804, 18747, 18779, 33640, 33682, 33617, 26912, 26962, 26976, 26999, 28698);
 DELETE FROM npc_trainer_template WHERE entry=1090;
@@ -295,8 +286,7 @@ INSERT INTO npc_trainer_template VALUES
 (1090, 10097,   5000, 186, 175, 0),
 (1090, 10249,  50000, 186, 200, 25),
 (1090, 10098,  10000, 186, 230, 0),
-(1090, 16153,  20000, 186, 250, 0),
-(1090, 70524,  10000, 186, 250, 0);
+(1090, 16153,  20000, 186, 250, 0);
 UPDATE creature_template SET trainer_id=1090 WHERE entry IN (1681, 1701, 3001, 3137, 3175, 3357, 3555, 4254, 4598, 5392, 5513, 6297, 8128, 16663, 16752, 17488, 18804);
 DELETE FROM npc_trainer_template WHERE entry=1091;
 INSERT INTO npc_trainer_template (entry, spell, spellcost, reqskill, reqskillvalue, reqlevel)
@@ -315,40 +305,17 @@ UPDATE creature_template SET trainer_id=1091 WHERE entry IN (18747, 18779, 33640
 DELETE FROM npc_trainer_template WHERE entry=1092;
 INSERT INTO npc_trainer_template (entry, spell, spellcost, reqskill, reqskillvalue, reqlevel)
 (SELECT 1092 AS entry, spell, spellcost, reqskill, reqskillvalue, reqlevel FROM npc_trainer_template WHERE entry=1091);
-INSERT INTO npc_trainer_template VALUES
-(1092, 49252, 100000, 186, 350, 0),
-(1092, 49258, 150000, 186, 400, 0),
-(1092, 50309, 350000, 186, 350, 55),
-(1092, 55208, 200000, 186, 450, 0),
-(1092, 55211, 200000, 186, 450, 0);
 UPDATE creature_template SET trainer_id=1092 WHERE entry IN (26912, 26962, 26976, 26999, 28698);
 -- fix quest repeatability
 UPDATE quest_template SET SpecialFlags=SpecialFlags|1 WHERE entry=13845;
 -- missed flag
 UPDATE creature_template SET npcflag=npcflag|4096|128 WHERE entry=29561;
--- fix zuldrak questline 
-DELETE FROM gossip_menu_option WHERE menu_id=9709 and id BETWEEN 1 AND 7;
-INSERT gossip_menu_option (menu_id, id, option_icon, option_text, option_id, npc_option_npcflag, action_menu_id, action_poi_id, action_script_id, box_coded, box_money, box_text, cond_1, cond_1_val_1, cond_1_val_2, cond_2, cond_2_val_1, cond_2_val_2, cond_3, cond_3_val_1, cond_3_val_2) VALUES
-(9709, 1, 0, 'I\'ve lost my ensorcelled choker!', 1, 1, 9797, 0, 9797, 0, 0, NULL, 9, 12648, 0, 24, 38699, 1, 0, 0, 0),
-(9709, 2, 0, 'I\'ve lost my ensorcelled choker!', 1, 1, 9797, 0, 9797, 0, 0, NULL, 9, 12649, 0, 24, 38699, 1, 0, 0, 0),
-(9709, 3, 0, 'I\'ve lost my ensorcelled choker!', 1, 1, 9797, 0, 9797, 0, 0, NULL, 9, 12661, 0, 24, 38699, 1, 0, 0, 0),
-(9709, 4, 0, 'I\'ve lost my ensorcelled choker!', 1, 1, 9797, 0, 9797, 0, 0, NULL, 9, 12669, 0, 24, 38699, 1, 0, 0, 0),
-(9709, 5, 0, 'I\'ve lost my ensorcelled choker!', 1, 1, 9797, 0, 9797, 0, 0, NULL, 9, 12677, 0, 24, 38699, 1, 0, 0, 0),
-(9709, 6, 0, 'I\'ve lost my ensorcelled choker!', 1, 1, 9797, 0, 9797, 0, 0, NULL, 9, 12676, 0, 24, 38699, 1, 0, 0, 0),
-(9709, 7, 0, 'I\'ve lost my ensorcelled choker!', 1, 1, 9797, 0, 9797, 0, 0, NULL, 9, 12713, 0, 24, 38699, 1, 0, 0, 0);
-DELETE FROM gossip_scripts WHERE id=9797;
-INSERT INTO gossip_scripts (id, command, datalong, comments) VALUES
-(9797, 15, 53810, 'Give Ensorceled Choker');
 
 -- Aresella <First Aid Trainer>
 INSERT IGNORE INTO npc_vendor (entry, item) VALUES
 (18991, 21993),
 (18991, 21992),
 (18991, 22012);
-INSERT IGNORE INTO npc_trainer VALUES
-(18991, 50299, 500000, 129, 350, 0),
-(18991, 45545,  80000, 129, 350, 0),
-(18991, 45546,  60000, 129, 350, 0);
 
 -- missing stuff
 INSERT IGNORE INTO npc_vendor (entry, item)
@@ -964,11 +931,6 @@ INSERT INTO creature_movement_template (entry, point, position_x, position_y, po
 (1655,1,2742.709,785.519,119.133,25000,0.454),(1655,2,2747.480,789.889,119.131,0,0.981),(1655,3,2749.939,797.442,119.108,0,0.871),(1655,4,2753.927,798.877,119.091,0,0.086),(1655,5,2756.686,798.914,119.131,0,5.933),(1655,6,2763.927,796.199,114.367,0,5.395),(1655,7,2764.541,794.093,114.367,0,4.295),(1655,8,2762.543,791.399,114.367,0,3.644),(1655,9,2758.799,790.731,114.367,0,2.941),(1655,10,2752.163,792.589,114.367,0,3.467),(1655,11,2751.12,799.975,114.367,0,1.29676),(1655,12,2752.026611,803.194946,114.245232,15000,1.320318),(1655,13,2748.365,790.155,114.367,0,4.268),(1655,14,2746.259,783.310,114.837,80000,1.247),(1655,15,2748.365,790.155,114.367,0,1.268),(1655,16,2751.12,799.975,114.367,0,1.29676),(1655,17,2752.026611,803.194946,114.245232,15000,1.320318),(1655,18,2752.163,792.589,114.367,0,0.467),(1655,19,2758.799,790.731,114.367,0,5.941),(1655,20,2762.543,791.399,114.367,0,0.644),(1655,21,2764.541,794.093,114.367,0,1.295),(1655,22,2763.927,796.199,114.367,0,2.395),(1655,23,2756.686,798.914,119.131,0,2.933),(1655,24,2753.927,798.877,119.091,0,3.086),(1655,25,2749.939,797.442,119.108,0,3.871),(1655,26,2747.480,789.889,119.131,0,3.981),(1655,27,2742.709,785.519,119.133,0,3.454);
 
 -- Klark20
--- fix typo in Updatepack 402 for NPC Moonglade Portal 
-DELETE FROM gossip_scripts WHERE id=9991;
-INSERT INTO gossip_scripts (id, delay, command, datalong, datalong2, comments) VALUES
-(9991, 0, 15, 57536, 4, 'cast Forcecast Portal: Moonglade');
-UPDATE creature_template SET npcflag=npcflag&~1 WHERE entry=32790;
 -- NPC Zephyr
 UPDATE gossip_menu_option SET cond_1_val_2=6 WHERE menu_id=9205 AND id=0;
 
@@ -988,55 +950,10 @@ INSERT INTO gossip_menu (entry, text_id, cond_1, cond_1_val_1, cond_1_val_2, con
 DELETE FROM gossip_menu_option WHERE menu_id=9763 AND id=1;
 UPDATE gossip_menu_option SET id=1 WHERE menu_id=9763 AND id=2;
 
--- NPC Librarian Garren
-UPDATE gossip_menu_option SET action_menu_id=-1, action_script_id=9761, cond_1=9, cond_1_val_1=11582 WHERE menu_id=9761 AND id=0;
-DELETE FROM gossip_scripts WHERE id=9761;
-INSERT INTO gossip_scripts (id, delay, command, datalong, datalong2, comments) VALUES
-(9761, 0, 15, 52909, 0, 'cast Water Breathing');
-
--- fixed typos
--- Kodian
-UPDATE gossip_menu_option SET cond_1=9, cond_1_val_1=12247 WHERE menu_id=9504 AND id=0;
-UPDATE gossip_menu_option SET cond_1=0, cond_1_val_1=0 WHERE menu_id=9505 AND id=0;
--- Orsonn
-UPDATE gossip_menu_option SET cond_1=9, cond_1_val_1=12247 WHERE menu_id=9500 AND id=0;
-UPDATE gossip_menu_option SET cond_1=0, cond_1_val_1=0 WHERE menu_id=9503 AND id=0;
-
 -- Illusia Lune
 -- remove 1 unneeded gossip_menu_option
 DELETE FROM gossip_menu_option WHERE menu_id=9498 AND id=1;
 UPDATE gossip_menu_option SET id=1 WHERE menu_id=9498 AND id=2;
-
--- NPC Gavrock
-UPDATE gossip_menu_option SET action_menu_id=-1, action_script_id=9485 WHERE menu_id=9485 AND id=0;
-DELETE FROM gossip_scripts WHERE id=9485;
-INSERT INTO gossip_scripts (id, delay, command, datalong, datalong2, datalong3, dataint, comments) VALUES
-(9485, 0, 0, 0, 26420, 5, 2000000216, 'say 1'),
-(9485, 4, 0, 0, 26420, 5, 2000000217, 'say 2'),
-(9485, 9, 0, 0, 26420, 5, 2000000218, 'say 3'),
-(9485, 0, 8, 26420, 1, 0, 0, 'quest-killcredit');
-
-DELETE FROM db_script_string WHERE entry IN (2000000216, 2000000217, 2000000218);
-INSERT INTO db_script_string (entry, content_default) VALUES 
-(2000000216, 'Ah, yes. Loken is well known to me.'),
-(2000000217, 'It is he who commands the sons of iron in their war against us.'),
-(2000000218, 'From his hiding place, he oversees their preparations for war with the goal of exterminating the stone giants!');
-
--- NPC Hugh Glass
-DELETE FROM gossip_menu_option WHERE menu_id=9484 AND id=0;
-INSERT INTO gossip_menu_option (menu_id, id, option_icon, option_text, option_id, npc_option_npcflag, action_menu_id, action_poi_id, action_script_id, box_coded, box_money, box_text, cond_1, cond_1_val_1, cond_1_val_2, cond_2, cond_2_val_1, cond_2_val_2, cond_3, cond_3_val_1, cond_3_val_2) VALUES
-(9484, 0, 0, 'Calm down, I want to ask you about the Iron Dwarves and Loken.', 1, 1, -1, 0, 9484, 0, 0, '', 9, 12204, 0, 0, 0, 0, 0, 0, 0);
-
-DELETE FROM gossip_scripts WHERE id=9484;
-INSERT INTO gossip_scripts (id, delay, command, datalong, datalong2, datalong3, dataint, comments) VALUES
-(9484, 0, 0, 0, 0, 5, 2000000219, 'say 1'),
-(9484, 5, 0, 0, 0, 5, 2000000220, 'say 2'),
-(9484, 0, 8, 26484, 1, 0, 0, 'quest-killcredit');
-
-DELETE FROM db_script_string WHERE entry IN (2000000219, 2000000220);
-INSERT INTO db_script_string (entry, content_default) VALUES 
-(2000000219, 'He\'s out to get me, too! I\'d be careful around here if I was you, traveler. You never know which tree he\'s hiding behind!'),
-(2000000220, 'That\'s not something Limpy Joe would ask! But yeah, I know Loken.');
 
 -- (Caer Darrow)
 -- NPC Joseph Dirte
@@ -1271,18 +1188,12 @@ INSERT INTO gossip_scripts (id, delay, command, datalong, data_flags, comments) 
 -- Ras Frostwhisper, epic item should have ~2% dropchance, not 4 (reference called 2 times)
 UPDATE reference_loot_template SET ChanceOrQuestChance=1 WHERE entry=35030 AND item=13314;
 
--- Coren Direbrew loot
+-- Coren Direbrew loot - ToDo: fix this for TBC
 UPDATE creature_template SET lootid=entry WHERE entry=23872;
 DELETE FROM creature_loot_template WHERE entry=23872;
 INSERT INTO creature_loot_template VALUES
 (23872, 38280, 100, 0, 1, 1, 19, 12491, 0), -- 1, Direbrew's Dire Brew, starts 12491
-(23872, 38281, 100, 0, 1, 1, 19, 12492, 0), -- 1, Direbrew's Dire Brew, starts 12492
-(23872, 49074, 0, 1, 1, 1, 0, 0, 0), -- 200, Coren's Chromium Coaster
-(23872, 49076, 0, 1, 1, 1, 0, 0, 0), -- 200, Mithril Pocketwatch
-(23872, 49078, 0, 1, 1, 1, 0, 0, 0), -- 200, Ancient Pickled Egg
-(23872, 49080, 0, 1, 1, 1, 0, 0, 0), -- 200, Brawler's Souvenir
-(23872, 49116, 0, 1, 1, 1, 0, 0, 0), -- 200, Bitter Balebrew Charm
-(23872, 49118, 0, 1, 1, 1, 0, 0, 0); -- 200, Bubbling Brightbrew Charm
+(23872, 38281, 100, 0, 1, 1, 19, 12492, 0); -- 1, Direbrew's Dire Brew, starts 12492
 
 -- Add a few missing texts
 DELETE FROM gossip_menu WHERE entry IN (1047, 1049);
@@ -1319,14 +1230,6 @@ UPDATE creature_template SET unit_flags=unit_flags & ~(0x02000000 | 0x00000100) 
 -- Fel Armament, this was only place where more than one could drop, would correspond to wowhead, but likely a bug there
 UPDATE creature_loot_template SET maxcount=1 WHERE item=29740 AND entry=18633;
 
--- quest 11259
-DELETE FROM spell_script_target WHERE entry=49625;
-INSERT INTO spell_script_target VALUES
-(49625, 1, 24087),
-(49625, 1, 24092),
-(49625, 1, 24093),
-(49625, 1, 24094);
-
 -- Bag of Fishing Treasures (correcting crocolisks drop chance)
 UPDATE item_loot_template SET ChanceOrQuestChance=15 WHERE entry=35348 AND item IN (33816, 33818, 35349, 35350);
 
@@ -1337,498 +1240,6 @@ UPDATE creature_loot_template SET ChanceOrQuestChance=1 WHERE entry=15550 AND it
 -- *******************
 -- ***** UDB 404 *****
 -- *******************
-
--- template
-UPDATE creature_template SET equipment_id=2 WHERE entry=19499;
-UPDATE creature_template SET equipment_id=4 WHERE entry=19573;
-UPDATE creature_template SET equipment_id=5 WHERE entry=34713;
-UPDATE creature_template SET equipment_id=6 WHERE entry=19948;
-UPDATE creature_template SET equipment_id=7 WHERE entry=21755;
-UPDATE creature_template SET equipment_id=9 WHERE entry=17636;
-UPDATE creature_template SET equipment_id=556 WHERE entry=22464;
-UPDATE creature_template SET equipment_id=10 WHERE entry=18666;
-UPDATE creature_template SET equipment_id=557 WHERE entry=21140;
-UPDATE creature_template SET equipment_id=12 WHERE entry=20669;
-UPDATE creature_template SET equipment_id=13 WHERE entry=18657;
-UPDATE creature_template SET equipment_id=552 WHERE entry=21183;
-UPDATE creature_template SET equipment_id=1637 WHERE entry=18995;
-UPDATE creature_template SET equipment_id=17 WHERE entry=23217;
-UPDATE creature_template SET equipment_id=16 WHERE entry=649;
-UPDATE creature_template SET equipment_id=19 WHERE entry=19952;
-UPDATE creature_template SET equipment_id=18 WHERE entry=18093;
-UPDATE creature_template SET equipment_id=20 WHERE entry=18172;
-UPDATE creature_template SET equipment_id=23 WHERE entry=62;
-UPDATE creature_template SET equipment_id=22 WHERE entry=652;
-UPDATE creature_template SET equipment_id=25 WHERE entry=19629;
-UPDATE creature_template SET equipment_id=26 WHERE entry=19649;
-UPDATE creature_template SET equipment_id=572 WHERE entry=22006;
-UPDATE creature_template SET equipment_id=29 WHERE entry=19576;
-UPDATE creature_template SET equipment_id=30 WHERE entry=19769;
-UPDATE creature_template SET equipment_id=1132 WHERE entry=19621;
-UPDATE creature_template SET equipment_id=38 WHERE entry=21803;
-UPDATE creature_template SET equipment_id=525 WHERE entry=29651;
-UPDATE creature_template SET equipment_id=50 WHERE entry=19944;
-UPDATE creature_template SET equipment_id=1624 WHERE entry=17835;
-UPDATE creature_template SET equipment_id=534 WHERE entry=18684;
-UPDATE creature_template SET equipment_id=53 WHERE entry=19690;
-UPDATE creature_template SET equipment_id=57 WHERE entry=21259;
-UPDATE creature_template SET equipment_id=1619 WHERE entry=22980;
-UPDATE creature_template SET equipment_id=60 WHERE entry=2604;
-UPDATE creature_template SET equipment_id=68 WHERE entry=19571;
-UPDATE creature_template SET equipment_id=1583 WHERE entry=19512;
-UPDATE creature_template SET equipment_id=70 WHERE entry=28180;
-UPDATE creature_template SET equipment_id=1039 WHERE entry=30247;
-UPDATE creature_template SET equipment_id=619 WHERE entry=29942;
-UPDATE creature_template SET equipment_id=622 WHERE entry=22427;
-UPDATE creature_template SET equipment_id=72 WHERE entry=23016;
-UPDATE creature_template SET equipment_id=1029 WHERE entry=32501;
-UPDATE creature_template SET equipment_id=621 WHERE entry=21461;
-UPDATE creature_template SET equipment_id=85 WHERE entry=14962;
-UPDATE creature_template SET equipment_id=626 WHERE entry=20068;
-UPDATE creature_template SET equipment_id=87 WHERE entry=34654;
-UPDATE creature_template SET equipment_id=86 WHERE entry=5464;
-UPDATE creature_template SET equipment_id=624 WHERE entry=17976;
-UPDATE creature_template SET equipment_id=80 WHERE entry=511;
-UPDATE creature_template SET equipment_id=83 WHERE entry=14498;
-UPDATE creature_template SET equipment_id=89 WHERE entry=3767;
-UPDATE creature_template SET equipment_id=88 WHERE entry=19610;
-UPDATE creature_template SET equipment_id=91 WHERE entry=18765;
-UPDATE creature_template SET equipment_id=577 WHERE entry=29945;
-UPDATE creature_template SET equipment_id=578 WHERE entry=23428;
-UPDATE creature_template SET equipment_id=1551 WHERE entry=22025;
-UPDATE creature_template SET equipment_id=2298 WHERE entry=15608;
-UPDATE creature_template SET equipment_id=99 WHERE entry=22007;
-UPDATE creature_template SET equipment_id=1542 WHERE entry=20900;
-UPDATE creature_template SET equipment_id=109 WHERE entry=20753;
-UPDATE creature_template SET equipment_id=1543 WHERE entry=17879;
-UPDATE creature_template SET equipment_id=106 WHERE entry=15551;
-UPDATE creature_template SET equipment_id=107 WHERE entry=5524;
-UPDATE creature_template SET equipment_id=1561 WHERE entry=18992;
-UPDATE creature_template SET equipment_id=599 WHERE entry=21824;
-UPDATE creature_template SET equipment_id=127 WHERE entry=20795;
-UPDATE creature_template SET equipment_id=126 WHERE entry=19992;
-UPDATE creature_template SET equipment_id=605 WHERE entry=21639;
-UPDATE creature_template SET equipment_id=687 WHERE entry=17820;
-UPDATE creature_template SET equipment_id=137 WHERE entry=19574;
-UPDATE creature_template SET equipment_id=139 WHERE entry=19486;
-UPDATE creature_template SET equipment_id=682 WHERE entry=32417;
-UPDATE creature_template SET equipment_id=1219 WHERE entry=35368;
-UPDATE creature_template SET equipment_id=129 WHERE entry=19509;
-UPDATE creature_template SET equipment_id=130 WHERE entry=3694;
-UPDATE creature_template SET equipment_id=2077 WHERE entry=19788;
-UPDATE creature_template SET equipment_id=135 WHERE entry=20766;
-UPDATE creature_template SET equipment_id=1776 WHERE entry=23257;
-UPDATE creature_template SET equipment_id=149 WHERE entry=23141;
-UPDATE creature_template SET equipment_id=151 WHERE entry=29947;
-UPDATE creature_template SET equipment_id=170 WHERE entry=22151;
-UPDATE creature_template SET equipment_id=2098 WHERE entry=21453;
-UPDATE creature_template SET equipment_id=2101 WHERE entry=19926;
-UPDATE creature_template SET equipment_id=160 WHERE entry=17819;
-UPDATE creature_template SET equipment_id=190 WHERE entry=28596;
-UPDATE creature_template SET equipment_id=2087 WHERE entry=22899;
-UPDATE creature_template SET equipment_id=661 WHERE entry=22363;
-UPDATE creature_template SET equipment_id=2091 WHERE entry=22254;
-UPDATE creature_template SET equipment_id=2088 WHERE entry=20768;
-UPDATE creature_template SET equipment_id=2089 WHERE entry=21164;
-UPDATE creature_template SET equipment_id=657 WHERE entry=40212;
-UPDATE creature_template SET equipment_id=2095 WHERE entry=20857;
-UPDATE creature_template SET equipment_id=180 WHERE entry=23300;
-UPDATE creature_template SET equipment_id=205 WHERE entry=16392;
-UPDATE creature_template SET equipment_id=200 WHERE entry=34675;
-UPDATE creature_template SET equipment_id=203 WHERE entry=19623;
-UPDATE creature_template SET equipment_id=202 WHERE entry=21983;
-UPDATE creature_template SET equipment_id=762 WHERE entry=21783;
-UPDATE creature_template SET equipment_id=765 WHERE entry=22458;
-UPDATE creature_template SET equipment_id=211 WHERE entry=26601;
-UPDATE creature_template SET equipment_id=236 WHERE entry=19217;
-UPDATE creature_template SET equipment_id=717 WHERE entry=22150;
-UPDATE creature_template SET equipment_id=231 WHERE entry=17023;
-UPDATE creature_template SET equipment_id=2172 WHERE entry=13777;
-UPDATE creature_template SET equipment_id=1686 WHERE entry=22271;
-UPDATE creature_template SET equipment_id=251 WHERE entry=21296;
-UPDATE creature_template SET equipment_id=244 WHERE entry=18994;
-UPDATE creature_template SET equipment_id=243 WHERE entry=19167;
-UPDATE creature_template SET equipment_id=275 WHERE entry=19945;
-UPDATE creature_template SET equipment_id=273 WHERE entry=19789;
-UPDATE creature_template SET equipment_id=272 WHERE entry=19765;
-UPDATE creature_template SET equipment_id=279 WHERE entry=19872;
-UPDATE creature_template SET equipment_id=816 WHERE entry=20471;
-DELETE FROM creature_equip_template WHERE entry = 2434;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2434, 5289, 0, 5260);  -- [19449]
-UPDATE creature_template SET equipment_id=2434 WHERE entry=19449;
-DELETE FROM creature_equip_template WHERE entry = 2433;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2433, 46987, 143, 0);  -- [466]
-UPDATE creature_template SET equipment_id=2433 WHERE entry=466;
-UPDATE creature_template SET equipment_id=281 WHERE entry=19634;
-DELETE FROM creature_equip_template WHERE entry = 2432;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2432, 31206, 31466, 0);  -- [22016]
-UPDATE creature_template SET equipment_id=2432 WHERE entry=22016;
-DELETE FROM creature_equip_template WHERE entry = 2438;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2438, 29462, 29462, 0);  -- [20551]
-UPDATE creature_template SET equipment_id=2438 WHERE entry=20551;
-DELETE FROM creature_equip_template WHERE entry = 2437;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2437, 32644, 0, 0);  -- [23291]
-UPDATE creature_template SET equipment_id=2437 WHERE entry=23291;
-DELETE FROM creature_equip_template WHERE entry = 2436;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2436, 12746, 0, 6230);  -- [3345]
-UPDATE creature_template SET equipment_id=2436 WHERE entry=3345;
-UPDATE creature_template SET equipment_id=804 WHERE entry=20881;
-UPDATE creature_template SET equipment_id=259 WHERE entry=20910;
-UPDATE creature_template SET equipment_id=256 WHERE entry=21197;
-UPDATE creature_template SET equipment_id=266 WHERE entry=22410;
-UPDATE creature_template SET equipment_id=270 WHERE entry=22214;
-UPDATE creature_template SET equipment_id=271 WHERE entry=21710;
-UPDATE creature_template SET equipment_id=305 WHERE entry=19874;
-UPDATE creature_template SET equipment_id=788 WHERE entry=15550;
-UPDATE creature_template SET equipment_id=1401 WHERE entry=17815;
-UPDATE creature_template SET equipment_id=1403 WHERE entry=19635;
-UPDATE creature_template SET equipment_id=1402 WHERE entry=17814;
-UPDATE creature_template SET equipment_id=317 WHERE entry=13817;
-UPDATE creature_template SET equipment_id=1870 WHERE entry=14221;
-UPDATE creature_template SET equipment_id=294 WHERE entry=19467;
-UPDATE creature_template SET equipment_id=1299 WHERE entry=21506;
-UPDATE creature_template SET equipment_id=325 WHERE entry=18934;
-UPDATE creature_template SET equipment_id=320 WHERE entry=20880;
-UPDATE creature_template SET equipment_id=321 WHERE entry=11980;
-UPDATE creature_template SET equipment_id=331 WHERE entry=23038;
-UPDATE creature_template SET equipment_id=328 WHERE entry=18723;
-UPDATE creature_template SET equipment_id=329 WHERE entry=22941;
-UPDATE creature_template SET equipment_id=1342 WHERE entry=13840;
-UPDATE creature_template SET equipment_id=378 WHERE entry=2605;
-UPDATE creature_template SET equipment_id=354 WHERE entry=20484;
-UPDATE creature_template SET equipment_id=1315 WHERE entry=19572;
-UPDATE creature_template SET equipment_id=841 WHERE entry=19642;
-UPDATE creature_template SET equipment_id=1795 WHERE entry=22433;
-UPDATE creature_template SET equipment_id=1319 WHERE entry=20113;
-UPDATE creature_template SET equipment_id=953 WHERE entry=20485;
-UPDATE creature_template SET equipment_id=415 WHERE entry=19768;
-UPDATE creature_template SET equipment_id=1491 WHERE entry=20879;
-UPDATE creature_template SET equipment_id=413 WHERE entry=18171;
-UPDATE creature_template SET equipment_id=1501 WHERE entry=19762;
-UPDATE creature_template SET equipment_id=404 WHERE entry=17587;
-UPDATE creature_template SET equipment_id=405 WHERE entry=21058;
-DELETE FROM creature_equip_template WHERE entry = 2335;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2335, 31824, 0, 2552);  -- [22494]
-UPDATE creature_template SET equipment_id=2335 WHERE entry=22494;
-UPDATE creature_template SET equipment_id=2334 WHERE entry=23311;
-DELETE FROM creature_equip_template WHERE entry = 2336;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2336, 0, 0, 29626);  -- [19541]
-UPDATE creature_template SET equipment_id=2336 WHERE entry=19541;
-DELETE FROM creature_equip_template WHERE entry = 2337;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2337, 29816, 0, 0);  -- [19529]
-UPDATE creature_template SET equipment_id=2337 WHERE entry=19529;
-DELETE FROM creature_equip_template WHERE entry = 2338;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2338, 29124, 0, 29626);  -- [21986]
-UPDATE creature_template SET equipment_id=2338 WHERE entry=21986;
-DELETE FROM creature_equip_template WHERE entry = 2339;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2339, 29403, 0, 30456);  -- [20901]
-UPDATE creature_template SET equipment_id=2339 WHERE entry=20901;
-DELETE FROM creature_equip_template WHERE entry = 2340;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2340, 31311, 0, 0);  -- [22479]
-UPDATE creature_template SET equipment_id=2340 WHERE entry=22479;
-DELETE FROM creature_equip_template WHERE entry = 2341;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2341, 2827, 25646, 0);  -- [18440]
-UPDATE creature_template SET equipment_id=2341 WHERE entry=18440;
-DELETE FROM creature_equip_template WHERE entry = 2342;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2342, 29418, 0, 0);  -- [20896]
-UPDATE creature_template SET equipment_id=2342 WHERE entry=20896;
-DELETE FROM creature_equip_template WHERE entry = 2343;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2343, 5502, 5502, 0);  -- [18170]
-UPDATE creature_template SET equipment_id=2343 WHERE entry=18170;
-UPDATE creature_template SET equipment_id=918 WHERE entry=20059;
-DELETE FROM creature_equip_template WHERE entry = 2344;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2344, 0, 0, 31083);  -- [21979]
-UPDATE creature_template SET equipment_id=2344 WHERE entry=21979;
-DELETE FROM creature_equip_template WHERE entry = 2345;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2345, 29809, 0, 0);  -- [20886]
-UPDATE creature_template SET equipment_id=2345 WHERE entry=20886;
-DELETE FROM creature_equip_template WHERE entry = 2346;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2346, 23743, 23743, 0);  -- [20885]
-UPDATE creature_template SET equipment_id=2346 WHERE entry=20885;
-DELETE FROM creature_equip_template WHERE entry = 2347;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2347, 32322, 0, 0);  -- [23347]
-UPDATE creature_template SET equipment_id=2347 WHERE entry=23347;
-DELETE FROM creature_equip_template WHERE entry = 2348;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2348, 29820, 29821, 0);  -- [20985]
-UPDATE creature_template SET equipment_id=2348 WHERE entry=20985;
-DELETE FROM creature_equip_template WHERE entry = 2349;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2349, 29819, 0, 0);  -- [20984]
-UPDATE creature_template SET equipment_id=2349 WHERE entry=20984;
-DELETE FROM creature_equip_template WHERE entry = 2350;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2350, 0, 32322, 0);  -- [23362]
-UPDATE creature_template SET equipment_id=2350 WHERE entry=23362;
-UPDATE creature_template SET equipment_id=2012 WHERE entry=21808;
-DELETE FROM creature_equip_template WHERE entry = 2351;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2351, 11762, 0, 12523);  -- [18094, 23177, 23178]
-UPDATE creature_template SET equipment_id=2351 WHERE entry=18094;
-UPDATE creature_template SET equipment_id=2351 WHERE entry=23177;
-UPDATE creature_template SET equipment_id=2351 WHERE entry=23178;
-DELETE FROM creature_equip_template WHERE entry = 2353;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2353, 28488, 0, 0);  -- [19466, 21822, 18872]
-UPDATE creature_template SET equipment_id=2353 WHERE entry=19466;
-UPDATE creature_template SET equipment_id=2353 WHERE entry=21822;
-UPDATE creature_template SET equipment_id=2353 WHERE entry=18872;
-DELETE FROM creature_equip_template WHERE entry = 2352;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2352, 24418, 23481, 0);  -- [18098]
-UPDATE creature_template SET equipment_id=2352 WHERE entry=18098;
-DELETE FROM creature_equip_template WHERE entry = 2355;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2355, 13722, 12867, 0);  -- [21503]
-UPDATE creature_template SET equipment_id=2355 WHERE entry=21503;
-DELETE FROM creature_equip_template WHERE entry = 2354;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2354, 31274, 0, 0);  -- [21500]
-UPDATE creature_template SET equipment_id=2354 WHERE entry=21500;
-DELETE FROM creature_equip_template WHERE entry = 2357;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2357, 23382, 24328, 0);  -- [19510, 17993, 19220]
-UPDATE creature_template SET equipment_id=2357 WHERE entry=19510;
-UPDATE creature_template SET equipment_id=2357 WHERE entry=17993;
-UPDATE creature_template SET equipment_id=2357 WHERE entry=19220;
-DELETE FROM creature_equip_template WHERE entry = 2356;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2356, 23481, 23481, 0);  -- [19511]
-UPDATE creature_template SET equipment_id=2356 WHERE entry=19511;
-DELETE FROM creature_equip_template WHERE entry = 2358;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2358, 12332, 0, 6886);  -- [19508]
-UPDATE creature_template SET equipment_id=2358 WHERE entry=19508;
-DELETE FROM creature_equip_template WHERE entry = 2361;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2361, 0, 0, 30580);  -- [23453]
-UPDATE creature_template SET equipment_id=2361 WHERE entry=23453;
-DELETE FROM creature_equip_template WHERE entry = 2360;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2360, 39382, 0, 0);  -- [35072]
-UPDATE creature_template SET equipment_id=2360 WHERE entry=35072;
-DELETE FROM creature_equip_template WHERE entry = 2363;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2363, 29538, 0, 0);  -- [20770, 22076]
-UPDATE creature_template SET equipment_id=2363 WHERE entry=20770;
-UPDATE creature_template SET equipment_id=2363 WHERE entry=22076;
-UPDATE creature_template SET equipment_id=1519 WHERE entry=20897;
-DELETE FROM creature_equip_template WHERE entry = 2362;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2362, 29665, 0, 30580);  -- [23452]
-UPDATE creature_template SET equipment_id=2362 WHERE entry=23452;
-DELETE FROM creature_equip_template WHERE entry = 2365;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2365, 29442, 0, 0);  -- [22342, 20470]
-UPDATE creature_template SET equipment_id=2365 WHERE entry=22342;
-UPDATE creature_template SET equipment_id=2365 WHERE entry=20470;
-UPDATE creature_template SET equipment_id=899 WHERE entry=20990;
-UPDATE creature_template SET equipment_id=1513 WHERE entry=22821;
-UPDATE creature_template SET equipment_id=1512 WHERE entry=18875;
-DELETE FROM creature_equip_template WHERE entry = 2364;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2364, 29705, 0, 0);  -- [22343]
-UPDATE creature_template SET equipment_id=2364 WHERE entry=22343;
-DELETE FROM creature_equip_template WHERE entry = 2367;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2367, 28400, 0, 0);  -- [22966]
-UPDATE creature_template SET equipment_id=2367 WHERE entry=22966;
-DELETE FROM creature_equip_template WHERE entry = 2366;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2366, 24495, 0, 0);  -- [16952]
-UPDATE creature_template SET equipment_id=2366 WHERE entry=16952;
-DELETE FROM creature_equip_template WHERE entry = 2374;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2374, 24327, 0, 24319);  -- [20859, 21304]
-UPDATE creature_template SET equipment_id=2374 WHERE entry=20859;
-UPDATE creature_template SET equipment_id=2374 WHERE entry=21304;
-DELETE FROM creature_equip_template WHERE entry = 2372;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2372, 13608, 0, 0);  -- [18598]
-UPDATE creature_template SET equipment_id=2372 WHERE entry=18598;
-DELETE FROM creature_equip_template WHERE entry = 2373;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2373, 30661, 30662, 0);  -- [21291]
-UPDATE creature_template SET equipment_id=2373 WHERE entry=21291;
-DELETE FROM creature_equip_template WHERE entry = 2370;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2370, 24324, 24324, 24319);  -- [19705]
-UPDATE creature_template SET equipment_id=2370 WHERE entry=19705;
-UPDATE creature_template SET equipment_id=1969 WHERE entry=20416;
-DELETE FROM creature_equip_template WHERE entry = 2371;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2371, 14874, 0, 5870);  -- [20765, 19995]
-UPDATE creature_template SET equipment_id=2371 WHERE entry=20765;
-UPDATE creature_template SET equipment_id=2371 WHERE entry=19995;
-DELETE FROM creature_equip_template WHERE entry = 2368;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2368, 11762, 0, 24319);  -- [17994]
-UPDATE creature_template SET equipment_id=2368 WHERE entry=17994;
-UPDATE creature_template SET equipment_id=473 WHERE entry=19853;
-DELETE FROM creature_equip_template WHERE entry = 2369;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2369, 24320, 0, 24326);  -- [19707, 20207]
-UPDATE creature_template SET equipment_id=2369 WHERE entry=19707;
-UPDATE creature_template SET equipment_id=2369 WHERE entry=20207;
-DELETE FROM creature_equip_template WHERE entry = 2382;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2382, 27496, 13341, 0);  -- [18421]
-UPDATE creature_template SET equipment_id=2382 WHERE entry=18421;
-DELETE FROM creature_equip_template WHERE entry = 2383;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2383, 31302, 0, 0);  -- [18695]
-UPDATE creature_template SET equipment_id=2383 WHERE entry=18695;
-DELETE FROM creature_equip_template WHERE entry = 2380;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2380, 32322, 32322, 0);  -- [22982]
-UPDATE creature_template SET equipment_id=2380 WHERE entry=22982;
-DELETE FROM creature_equip_template WHERE entry = 2381;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2381, 2184, 5281, 0);  -- [13219]
-UPDATE creature_template SET equipment_id=2381 WHERE entry=13219;
-DELETE FROM creature_equip_template WHERE entry = 2378;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2378, 12461, 0, 23052);  -- [22331]
-UPDATE creature_template SET equipment_id=2378 WHERE entry=22331;
-DELETE FROM creature_equip_template WHERE entry = 2376;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2376, 29438, 0, 0);  -- [21805]
-UPDATE creature_template SET equipment_id=2376 WHERE entry=21805;
-DELETE FROM creature_equip_template WHERE entry = 2377;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2377, 30647, 30647, 0);  -- [21315]
-UPDATE creature_template SET equipment_id=2377 WHERE entry=21315;
-DELETE FROM creature_equip_template WHERE entry = 2391;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2391, 29715, 0, 0);  -- [19796]
-UPDATE creature_template SET equipment_id=2391 WHERE entry=19796;
-UPDATE creature_template SET equipment_id=1410 WHERE entry=21148;
-DELETE FROM creature_equip_template WHERE entry = 2390;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2390, 31311, 31311, 0);  -- [19797]
-UPDATE creature_template SET equipment_id=2390 WHERE entry=19797;
-DELETE FROM creature_equip_template WHERE entry = 2389;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2389, 30636, 0, 0);  -- [19792, 20563]
-UPDATE creature_template SET equipment_id=2389 WHERE entry=19792;
-UPDATE creature_template SET equipment_id=2389 WHERE entry=20563;
-DELETE FROM creature_equip_template WHERE entry = 2388;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2388, 5278, 1896, 0);  -- [17860]
-UPDATE creature_template SET equipment_id=2388 WHERE entry=17860;
-DELETE FROM creature_equip_template WHERE entry = 2387;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2387, 21573, 11041, 0);  -- [17862]
-UPDATE creature_template SET equipment_id=2387 WHERE entry=17862;
-DELETE FROM creature_equip_template WHERE entry = 2386;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2386, 29417, 0, 0);  -- [19806, 22018]
-UPDATE creature_template SET equipment_id=2386 WHERE entry=19806;
-UPDATE creature_template SET equipment_id=2386 WHERE entry=22018;
-DELETE FROM creature_equip_template WHERE entry = 2385;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2385, 30482, 0, 0);  -- [18404]
-UPDATE creature_template SET equipment_id=2385 WHERE entry=18404;
-DELETE FROM creature_equip_template WHERE entry = 2384;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2384, 2708, 12855, 0);  -- [18422]
-UPDATE creature_template SET equipment_id=2384 WHERE entry=18422;
-DELETE FROM creature_equip_template WHERE entry = 2399;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2399, 31654, 0, 0);  -- [21718]
-UPDATE creature_template SET equipment_id=2399 WHERE entry=21718;
-DELETE FROM creature_equip_template WHERE entry = 2398;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2398, 2813, 0, 2551);  -- [21719]
-UPDATE creature_template SET equipment_id=2398 WHERE entry=21719;
-UPDATE creature_template SET equipment_id=995 WHERE entry=18420;
-DELETE FROM creature_equip_template WHERE entry = 2397;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2397, 29446, 12860, 0);  -- [19221]
-UPDATE creature_template SET equipment_id=2397 WHERE entry=19221;
-UPDATE creature_template SET equipment_id=1416 WHERE entry=28132;
-DELETE FROM creature_equip_template WHERE entry = 2396;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2396, 31600, 31466, 0);  -- [21717]
-UPDATE creature_template SET equipment_id=2396 WHERE entry=21717;
-DELETE FROM creature_equip_template WHERE entry = 2395;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2395, 30204, 0, 0);  -- [21158]
-UPDATE creature_template SET equipment_id=2395 WHERE entry=21158;
-DELETE FROM creature_equip_template WHERE entry = 2394;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2394, 31603, 0, 0);  -- [22253]
-UPDATE creature_template SET equipment_id=2394 WHERE entry=22253;
-DELETE FROM creature_equip_template WHERE entry = 2393;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2393, 0, 0, 30128);  -- [21152, 21118, 21115]
-UPDATE creature_template SET equipment_id=2393 WHERE entry=21152;
-UPDATE creature_template SET equipment_id=2393 WHERE entry=21118;
-UPDATE creature_template SET equipment_id=2393 WHERE entry=21115;
-DELETE FROM creature_equip_template WHERE entry = 2392;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2392, 29424, 0, 0);  -- [21702]
-UPDATE creature_template SET equipment_id=2392 WHERE entry=21702;
-DELETE FROM creature_equip_template WHERE entry = 2404;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2404, 46987, 46987, 0);  -- [35026]
-UPDATE creature_template SET equipment_id=2404 WHERE entry=35026;
-UPDATE creature_template SET equipment_id=508 WHERE entry=19991;
-DELETE FROM creature_equip_template WHERE entry = 2405;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2405, 27757, 0, 0);  -- [29937]
-UPDATE creature_template SET equipment_id=2405 WHERE entry=29937;
-DELETE FROM creature_equip_template WHERE entry = 2406;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2406, 2705, 13859, 0);  -- [23110]
-UPDATE creature_template SET equipment_id=2406 WHERE entry=23110;
-DELETE FROM creature_equip_template WHERE entry = 2407;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2407, 30648, 0, 30128);  -- [21691]
-UPDATE creature_template SET equipment_id=2407 WHERE entry=21691;
-DELETE FROM creature_equip_template WHERE entry = 2400;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2400, 12858, 0, 5870);  -- [22270]
-UPDATE creature_template SET equipment_id=2400 WHERE entry=22270;
-DELETE FROM creature_equip_template WHERE entry = 2401;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2401, 31605, 0, 0);  -- [21720]
-UPDATE creature_template SET equipment_id=2401 WHERE entry=21720;
-DELETE FROM creature_equip_template WHERE entry = 2402;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2402, 2202, 2184, 0);  -- [22266]
-UPDATE creature_template SET equipment_id=2402 WHERE entry=22266;
-DELETE FROM creature_equip_template WHERE entry = 2403;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2403, 1903, 0, 5870);  -- [22264]
-UPDATE creature_template SET equipment_id=2403 WHERE entry=22264;
-DELETE FROM creature_equip_template WHERE entry = 2412;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2412, 13316, 0, 12523);  -- [17848]
-UPDATE creature_template SET equipment_id=2412 WHERE entry=17848;
-DELETE FROM creature_equip_template WHERE entry = 2413;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2413, 32463, 0, 0);  -- [23140]
-UPDATE creature_template SET equipment_id=2413 WHERE entry=23140;
-DELETE FROM creature_equip_template WHERE entry = 2414;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2414, 31604, 0, 0);  -- [23146]
-UPDATE creature_template SET equipment_id=2414 WHERE entry=23146;
-UPDATE creature_template SET equipment_id=1466 WHERE entry=19500;
-DELETE FROM creature_equip_template WHERE entry = 2415;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2415, 31311, 31467, 0);  -- [22093]
-UPDATE creature_template SET equipment_id=2415 WHERE entry=22093;
-DELETE FROM creature_equip_template WHERE entry = 2408;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2408, 2200, 0, 5870);  -- [23112]
-UPDATE creature_template SET equipment_id=2408 WHERE entry=23112;
-DELETE FROM creature_equip_template WHERE entry = 2409;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2409, 1901, 29637, 0);  -- [20726]
-UPDATE creature_template SET equipment_id=2409 WHERE entry=20726;
-DELETE FROM creature_equip_template WHERE entry = 2410;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2410, 32499, 0, 5870);  -- [23115]
-UPDATE creature_template SET equipment_id=2410 WHERE entry=23115;
-UPDATE creature_template SET equipment_id=499 WHERE entry=19943;
-DELETE FROM creature_equip_template WHERE entry = 2411;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2411, 32463, 32463, 0);  -- [23166]
-UPDATE creature_template SET equipment_id=2411 WHERE entry=23166;
-DELETE FROM creature_equip_template WHERE entry = 2421;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2421, 29423, 0, 0);  -- [20458]
-UPDATE creature_template SET equipment_id=2421 WHERE entry=20458;
-DELETE FROM creature_equip_template WHERE entry = 2420;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2420, 29424, 29424, 0);  -- [20459]
-UPDATE creature_template SET equipment_id=2420 WHERE entry=20459;
-DELETE FROM creature_equip_template WHERE entry = 2423;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2423, 29444, 29444, 0);  -- [20474]
-UPDATE creature_template SET equipment_id=2423 WHERE entry=20474;
-DELETE FROM creature_equip_template WHERE entry = 2422;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2422, 31551, 0, 0);  -- [23168]
-UPDATE creature_template SET equipment_id=2422 WHERE entry=23168;
-UPDATE creature_template SET equipment_id=494 WHERE entry=21975;
-UPDATE creature_template SET equipment_id=975 WHERE entry=18853;
-DELETE FROM creature_equip_template WHERE entry = 2417;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2417, 29439, 29439, 0);  -- [20448]
-UPDATE creature_template SET equipment_id=2417 WHERE entry=20448;
-DELETE FROM creature_equip_template WHERE entry = 2416;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2416, 29420, 29420, 0);  -- [20454]
-UPDATE creature_template SET equipment_id=2416 WHERE entry=20454;
-UPDATE creature_template SET equipment_id=974 WHERE entry=19643;
-DELETE FROM creature_equip_template WHERE entry = 2419;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2419, 2180, 2178, 0);  -- [18298]
-UPDATE creature_template SET equipment_id=2419 WHERE entry=18298;
-DELETE FROM creature_equip_template WHERE entry = 2418;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2418, 29436, 29436, 0);  -- [20450]
-UPDATE creature_template SET equipment_id=2418 WHERE entry=20450;
-DELETE FROM creature_equip_template WHERE entry = 2429;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2429, 29438, 29438, 0);  -- [20447]
-UPDATE creature_template SET equipment_id=2429 WHERE entry=20447;
-DELETE FROM creature_equip_template WHERE entry = 2428;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2428, 23906, 29636, 0);  -- [18873]
-UPDATE creature_template SET equipment_id=2428 WHERE entry=18873;
-UPDATE creature_template SET equipment_id=484 WHERE entry=18685;
-DELETE FROM creature_equip_template WHERE entry = 2431;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2431, 32610, 0, 5870);  -- [23256]
-UPDATE creature_template SET equipment_id=2431 WHERE entry=23256;
-DELETE FROM creature_equip_template WHERE entry = 2430;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2430, 19987, 19987, 0);  -- [19843]
-UPDATE creature_template SET equipment_id=2430 WHERE entry=19843;
-DELETE FROM creature_equip_template WHERE entry = 2425;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2425, 29712, 29712, 31348);  -- [22113]
-UPDATE creature_template SET equipment_id=2425 WHERE entry=22113;
-UPDATE creature_template SET equipment_id=481 WHERE entry=21137;
-DELETE FROM creature_equip_template WHERE entry = 2424;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2424, 23908, 0, 0);  -- [18855, 20134, 20139]
-UPDATE creature_template SET equipment_id=2424 WHERE entry=18855;
-UPDATE creature_template SET equipment_id=2424 WHERE entry=20134;
-UPDATE creature_template SET equipment_id=2424 WHERE entry=20139;
-UPDATE creature_template SET equipment_id=966 WHERE entry=21179;
-UPDATE creature_template SET equipment_id=965 WHERE entry=22061;
-DELETE FROM creature_equip_template WHERE entry = 2427;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2427, 2703, 13604, 0);  -- [19957]
-UPDATE creature_template SET equipment_id=2427 WHERE entry=19957;
-DELETE FROM creature_equip_template WHERE entry = 2426;
-INSERT INTO creature_equip_template (entry, equipentry1, equipentry2, equipentry3) VALUES(2426, 30147, 30147, 0);  -- [20435]
-UPDATE creature_template SET equipment_id=2426 WHERE entry=20435;
-UPDATE creature_template SET equipment_id=964 WHERE entry=23316;
 
 -- creature spawns
 -- Reginald Windsor (should be spawn only in quest event q.6403)
@@ -2115,10 +1526,6 @@ DELETE FROM creature WHERE guid = 84598;
 INSERT INTO creature (guid, id, map, spawnMask, modelid, equipment_id, position_x, position_y, position_z, orientation, spawntimesecs, spawndist, currentwaypoint, curhealth, curmana, DeathState, MovementType) VALUES 
 (84598,5424,1,1,0,0,-11861.2,-4607.75,3.26087,1.04219,120,10,0,2399,0,0,1);
 -- Hidden place - Newmans Landing, west of Dun Morogh at the Great Sea (swim north from Stormwind Harbor)
--- High Admiral "Shelly" Jorrik <Retiree> -- Added in patch 2.4.3
-DELETE FROM creature WHERE guid = 84599;
-INSERT INTO creature (guid, id, map, spawnMask, modelid, equipment_id, position_x, position_y, position_z, orientation, spawntimesecs, spawndist, currentwaypoint, curhealth, curmana, DeathState, MovementType) VALUES
-(84599,26081,0,1,0,0,-6378.3,1268.58,7.18762,2.37482,300,0,0,3072,0,0,0);
 -- Booty Bay Bruiser #1
 DELETE FROM creature WHERE guid = 84601;
 INSERT INTO creature (guid, id, map, spawnMask, modelid, equipment_id, position_x, position_y, position_z, orientation, spawntimesecs, spawndist, currentwaypoint, curhealth, curmana, DeathState, MovementType) VALUES 
@@ -2287,13 +1694,6 @@ INSERT INTO gossip_scripts (id, command, datalong, datalong2, comments) VALUES
 (538103, 15,  18632, 0, 'Heavy Runecloth Bandages');
 UPDATE npc_trainer_template SET reqskill=762, reqskillvalue=300 WHERE spell=40120;
 -- by daveh
--- Dedication of Honor, See the fall of the Lich King
-UPDATE gossip_menu_option SET action_script_id=11431, action_menu_id=-1 WHERE menu_id=11431 AND id=0;
-DELETE FROM gossip_scripts WHERE id=11431;
-INSERT INTO gossip_scripts (id, delay, command, datalong, dataint, comments) VALUES
-(11431, 0, 19, 16, 0, 'See the fall of the Lich King');
-UPDATE gameobject SET spawntimesecs=-300 WHERE guid = 11767;
-UPDATE creature_model_info SET modelid_other_gender=0 WHERE modelid IN (7113, 3494);
 -- dire maul
 UPDATE gameobject_template SET flags=flags |2 &~16 WHERE entry IN (179549, 179550);
 -- bobi - childrens week
@@ -3284,30 +2684,31 @@ UPDATE creature SET position_x =-11277.292969, position_y =1021.926025, position
 UPDATE creature SET position_x =-10084.279297, position_y =1558.133911, position_z =41.063999, orientation =3.654628 WHERE guid =28458; 
 -- movement (noth-one: should do :random , south one: WPs : spawndist =10 musy be set for randomovement)  
 UPDATE creature SET spawndist =5, MovementType =1 WHERE guid =28458;
-UPDATE creature SET spawndist =10, MovementType =2 WHERE guid =134022;
+-- UPDATE creature SET spawndist =10, MovementType =2 WHERE guid =134022;
 -- wps for southern spawn
-DELETE FROM creature_movement WHERE id =134022;
-INSERT INTO creature_movement (id, point, position_x, position_y, position_z, waittime, script_id, textid1, textid2, textid3, textid4, textid5, emote, spell, wpguid, orientation, model1, model2) VALUES
-(134022,1,-11257.083984,988.193298,83.333633,0,0,0,0,0,0,0,0,0,0,5.691633,0,0),
-(134022,2,-11244.374023,962.303589,83.268967,0,0,0,0,0,0,0,0,0,0,5.057828,0,0),
-(134022,3,-11240.503906,948.932190,75.621887,0,0,0,0,0,0,0,0,0,0,5.309946,0,0),
-(134022,4,-11212.638672,921.358337,54.390621,0,0,0,0,0,0,0,0,0,0,5.101033,0,0),
-(134022,5,-11194.571289,895.301819,48.434921,0,0,0,0,0,0,0,0,0,0,5.399480,0,0),
-(134022,6,-11172.559570,876.755981,41.317257,0,0,0,0,0,0,0,0,0,0,6.030151,0,0),
-(134022,7,-11146.256836,866.019714,38.482368,0,0,0,0,0,0,0,0,0,0,5.631956,0,0),
-(134022,8,-11125.966797,851.422791,40.382790,0,0,0,0,0,0,0,0,0,0,5.641383,0,0),
-(134022,9,-11086.842773,834.863525,40.771549,0,0,0,0,0,0,0,0,0,0,0.273191,0,0),
-(134022,10,-11059.468750,846.813660,38.656860,0,0,0,0,0,0,0,0,0,0,6.257144,0,0),
-(134022,11,-11039.079102,843.254517,36.393223,0,0,0,0,0,0,0,0,0,0,5.480391,0,0),
-(134022,12,-11012.395508,812.002136,37.440369,0,0,0,0,0,0,0,0,0,0,5.319386,0,0),
-(134022,13,-11002.748047,788.432556,36.436584,0,0,0,0,0,0,0,0,0,0,5.571501,0,0),
-(134022,14,-10982.679688,761.666016,43.991882,0,0,0,0,0,0,0,0,0,0,5.115180,0,0),
-(134022,15,-10962.611328,736.809204,46.480606,0,0,0,0,0,0,0,0,0,0,6.213784,0,0),
-(134022,16,-10913.859375,722.066284,42.726974,600000,0,0,0,0,0,0,0,0,0,5.943607,0,0),
-(134022,17,-10913.859375,722.066284,42.726974,2,57201,0,0,0,0,0,0,0,0,5.943607,0,0);
-DELETE FROM creature_movement_scripts WHERE id =57201;
-INSERT INTO creature_movement_scripts (id, delay, command, datalong, datalong2, datalong3, datalong4, data_flags, dataint, dataint2, dataint3, dataint4, x, y, z, o, comments) VALUES 
-(57201,2,18,0,0,0,0,0,0,0,0,0,0,0,0,0,'despawn self');
+-- ToDo: fix this:
+-- DELETE FROM creature_movement WHERE id =134022;
+-- INSERT INTO creature_movement (id, point, position_x, position_y, position_z, waittime, script_id, textid1, textid2, textid3, textid4, textid5, emote, spell, wpguid, orientation, model1, model2) VALUES
+-- (134022,1,-11257.083984,988.193298,83.333633,0,0,0,0,0,0,0,0,0,0,5.691633,0,0),
+-- (134022,2,-11244.374023,962.303589,83.268967,0,0,0,0,0,0,0,0,0,0,5.057828,0,0),
+-- (134022,3,-11240.503906,948.932190,75.621887,0,0,0,0,0,0,0,0,0,0,5.309946,0,0),
+-- (134022,4,-11212.638672,921.358337,54.390621,0,0,0,0,0,0,0,0,0,0,5.101033,0,0),
+-- (134022,5,-11194.571289,895.301819,48.434921,0,0,0,0,0,0,0,0,0,0,5.399480,0,0),
+-- (134022,6,-11172.559570,876.755981,41.317257,0,0,0,0,0,0,0,0,0,0,6.030151,0,0),
+-- (134022,7,-11146.256836,866.019714,38.482368,0,0,0,0,0,0,0,0,0,0,5.631956,0,0),
+-- (134022,8,-11125.966797,851.422791,40.382790,0,0,0,0,0,0,0,0,0,0,5.641383,0,0),
+-- (134022,9,-11086.842773,834.863525,40.771549,0,0,0,0,0,0,0,0,0,0,0.273191,0,0),
+-- (134022,10,-11059.468750,846.813660,38.656860,0,0,0,0,0,0,0,0,0,0,6.257144,0,0),
+-- (134022,11,-11039.079102,843.254517,36.393223,0,0,0,0,0,0,0,0,0,0,5.480391,0,0),
+-- (134022,12,-11012.395508,812.002136,37.440369,0,0,0,0,0,0,0,0,0,0,5.319386,0,0),
+-- (134022,13,-11002.748047,788.432556,36.436584,0,0,0,0,0,0,0,0,0,0,5.571501,0,0),
+-- (134022,14,-10982.679688,761.666016,43.991882,0,0,0,0,0,0,0,0,0,0,5.115180,0,0),
+-- (134022,15,-10962.611328,736.809204,46.480606,0,0,0,0,0,0,0,0,0,0,6.213784,0,0),
+-- (134022,16,-10913.859375,722.066284,42.726974,600000,0,0,0,0,0,0,0,0,0,5.943607,0,0),
+-- (134022,17,-10913.859375,722.066284,42.726974,2,57201,0,0,0,0,0,0,0,0,5.943607,0,0);
+-- DELETE FROM creature_movement_scripts WHERE id =57201;
+-- INSERT INTO creature_movement_scripts (id, delay, command, datalong, datalong2, datalong3, datalong4, data_flags, dataint, dataint2, dataint3, dataint4, x, y, z, o, comments) VALUES 
+-- (57201,2,18,0,0,0,0,0,0,0,0,0,0,0,0,0,'despawn self');
 -- they should spawn only during the Night_Event 
 DELETE FROM game_event_creature WHERE guid IN (134022,38468,52595,90280,52596,90279,52594);
 INSERT INTO game_event_creature (guid, event) VALUES (52595,-27),(90280,-27),(52596,-27),(90279,-27),(52594,-27),(134022,27),(38468,27);
@@ -3316,24 +2717,24 @@ INSERT INTO game_event_creature (guid, event) VALUES (52595,-27),(90280,-27),(52
 -- #  fix for command =3   #
 -- #########################
 -- creature_movement_scripts
-DELETE FROM creature_movement_scripts WHERE id =1967301;
-INSERT INTO creature_movement_scripts (id, delay, command, datalong, datalong2, datalong3, datalong4, data_flags, dataint, dataint2, dataint3, dataint4, x, y, z, o, comments) VALUES 
-(1967301,1,0,0,19676,10,0,0x02,2000005283,2000005282,2000005281,0,0,0,0,0,'Consortium Engineer force 19676 to: say random text (Mana Tombs event started)'),
-(1967301,10,0,0,19672,20,0,0x02,2000005284,2000005285,0,0,0,0,0,0,'Consortium Engineer force 19672 to: say random text'),
-(1967301,20,0,0,19676,10,0,0x02,2000005286,0,0,0,0,0,0,0,'Consortium Engineer force 19676 to: say text'),
-(1967301,26,0,0,0,0,0,0,2000005287,2000005288,0,0,0,0,0,0,'Consortium Engineer  - say random text'),
-(1967301,26,25,1,0,0,0,0,0,0,0,0,0,0,0,0,'Consortium Engineer - RUN ON'),
-(1967301,27,3,0,2000,0,0,0,0,0,0,0,-3086.069824,4943.743164,-101.047249,6.106854,''),
-(1967301,29,3,0,2000,0,0,0,0,0,0,0,-3068.30,4942.736328,-101.047302,6.275572,''),
-(1967301,31,3,0,1000,0,0,0,0,0,0,0,-3070.30,4942.736328,-101.047302,2.97685,''),
-(1967301,32,25,0,0,0,0,0,0,0,0,0,0,0,0,0,'Consortium Engineer - RUN OFF'),
-(1967301,35,0,2,0,0,0,0,2000005289,0,0,0,0,0,0,0,'Consortium Engineer  - text_emote'),
-(1967301,39,1,15,0,0,0,0,0,0,0,0,0,0,0,0,'Consortium Engineer - roar emote'),
-(1967301,40,0,0,0,0,0,0,2000005290,0,0,0,0,0,0,0,'Consortium Engineer  - say random text'),
-(1967301,43,15,5,0,0,0,0,0,0,0,0,0,0,0,0,'cast: die'),
-(1967301,44,0,2,19676,35,0,0x02,2000005291,0,0,0,0,0,0,0,'Consortium Engineer force 19676 to: text_emote'),
-(1967301,45,0,0,19676,35,0,0x02,2000005292,2000005293,0,0,0,0,0,0,'Consortium Engineer force 19676 to: say random text'),
-(1967301,48,18,0,0,0,0,0,0,0,0,0,0,0,0,0,'despawn self (Mana Tombs event ended)');
+-- DELETE FROM creature_movement_scripts WHERE id =1967301;
+-- INSERT INTO creature_movement_scripts (id, delay, command, datalong, datalong2, datalong3, datalong4, data_flags, dataint, dataint2, dataint3, dataint4, x, y, z, o, comments) VALUES 
+-- (1967301,1,0,0,19676,10,0,0x02,2000005283,2000005282,2000005281,0,0,0,0,0,'Consortium Engineer force 19676 to: say random text (Mana Tombs event started)'),
+-- (1967301,10,0,0,19672,20,0,0x02,2000005284,2000005285,0,0,0,0,0,0,'Consortium Engineer force 19672 to: say random text'),
+-- (1967301,20,0,0,19676,10,0,0x02,2000005286,0,0,0,0,0,0,0,'Consortium Engineer force 19676 to: say text'),
+-- (1967301,26,0,0,0,0,0,0,2000005287,2000005288,0,0,0,0,0,0,'Consortium Engineer  - say random text'),
+-- (1967301,26,25,1,0,0,0,0,0,0,0,0,0,0,0,0,'Consortium Engineer - RUN ON'),
+-- (1967301,27,3,0,2000,0,0,0,0,0,0,0,-3086.069824,4943.743164,-101.047249,6.106854,''),
+-- (1967301,29,3,0,2000,0,0,0,0,0,0,0,-3068.30,4942.736328,-101.047302,6.275572,''),
+-- (1967301,31,3,0,1000,0,0,0,0,0,0,0,-3070.30,4942.736328,-101.047302,2.97685,''),
+-- (1967301,32,25,0,0,0,0,0,0,0,0,0,0,0,0,0,'Consortium Engineer - RUN OFF'),
+-- (1967301,35,0,2,0,0,0,0,2000005289,0,0,0,0,0,0,0,'Consortium Engineer  - text_emote'),
+-- (1967301,39,1,15,0,0,0,0,0,0,0,0,0,0,0,0,'Consortium Engineer - roar emote'),
+-- (1967301,40,0,0,0,0,0,0,2000005290,0,0,0,0,0,0,0,'Consortium Engineer  - say random text'),
+-- (1967301,43,15,5,0,0,0,0,0,0,0,0,0,0,0,0,'cast: die'),
+-- (1967301,44,0,2,19676,35,0,0x02,2000005291,0,0,0,0,0,0,0,'Consortium Engineer force 19676 to: text_emote'),
+-- (1967301,45,0,0,19676,35,0,0x02,2000005292,2000005293,0,0,0,0,0,0,'Consortium Engineer force 19676 to: say random text'),
+-- (1967301,48,18,0,0,0,0,0,0,0,0,0,0,0,0,0,'despawn self (Mana Tombs event ended)');
 
 -- quest_start_scripts
 -- quest 945
@@ -3898,23 +3299,6 @@ UPDATE creature_template_addon SET auras=29266 WHERE entry=21727;
 UPDATE creature SET position_x=-3420.472, position_y=2291.111, position_z=33.80355, orientation=5.113815, spawndist=0, MovementType=0 WHERE guid=73628;
 UPDATE creature SET position_x=-3405.886, position_y=2290.532, position_z=34.10822, orientation=4.764749, spawndist=0, MovementType=0 WHERE guid=73637;
 
--- NPC Bat Handler Camille gossip for quest 11229 and 11170 (WotLK)
-UPDATE creature_template SET gossip_menu_id=8894 WHERE entry=23816;
-
-DELETE FROM gossip_menu_option WHERE menu_id=8894;
-INSERT INTO gossip_menu_option (menu_id,id,option_icon,option_text,option_id,npc_option_npcflag,action_menu_id,action_poi_id,action_script_id,box_coded,box_money,box_text,cond_1,cond_1_val_1,cond_1_val_2,cond_2,cond_2_val_1,cond_2_val_2,cond_3,cond_3_val_1,cond_3_val_2) VALUES
-(8894,0,0,'I need to fly to the Windrunner. Official Business!',1,1,-1,0,889400,0,0,'',9,11229,0,0,0,0,0,0,0),
-(8894,1,0,'I need a riding bat to intercept the Alliance reinforcements.',1,1,-1,0,889401,0,0,'',9,11170,0,0,0,0,0,0,0);
-
-DELETE FROM gossip_scripts WHERE id IN (889400,889401);
-INSERT INTO gossip_scripts (id,delay,command,datalong,datalong2,datalong3,datalong4,data_flags,dataint,dataint2,x,y,z,o,comments) VALUES
-(889400,0,15,43074,0,0,0,0,0,0,0,0,0,0,'cast Taxi to the Windrunner'),
-(889401,0,15,43136,0,0,0,0,0,0,0,0,0,0,'cast Test at Sea Taxi');
-
-DELETE FROM gossip_menu WHERE entry=8894;
-INSERT INTO gossip_menu (entry, text_id) VALUES 
-(8894, 11662);
-
 -- go Ethereal Teleport Pad (TBC)
 -- DELETE FROM event_scripts WHERE id=12930; -- ?
 
@@ -3964,10 +3348,10 @@ INSERT INTO gossip_menu (entry, text_id, script_id) VALUES
 
 DELETE FROM gossip_scripts WHERE id IN (7519, 7520,7521, 7525);
 INSERT INTO gossip_scripts (id,delay,command,datalong,datalong2,datalong3,datalong4,data_flags,dataint,dataint2,x,y,z,o,comments) VALUES
-(7519,0,8,17890,1,10,0,0,0,0,0,0,0,0,'killcredit'),
-(7520,0,8,17893,1,10,0,0,0,0,0,0,0,0,'killcredit'),
-(7521,0,8,17885,1,10,0,0,0,0,0,0,0,0,'killcredit'),
-(7525,0,8,17894,1,10,0,0,0,0,0,0,0,0,'killcredit');
+(7519,0,8,17890,1,0,0,0,0,0,0,0,0,0,'killcredit'),
+(7520,0,8,17893,1,0,0,0,0,0,0,0,0,0,'killcredit'),
+(7521,0,8,17885,1,0,0,0,0,0,0,0,0,0,'killcredit'),
+(7525,0,8,17894,1,0,0,0,0,0,0,0,0,0,'killcredit');
 
 -- Claw (TBC)
 DELETE FROM creature_linking_template WHERE entry=17827;
@@ -4123,25 +3507,6 @@ INSERT INTO gossip_menu_option (menu_id,id,option_icon,option_text,option_id,npc
 DELETE FROM gossip_menu WHERE entry=7501;
 INSERT INTO gossip_menu (entry, text_id) VALUES 
 (7501, 9097);
-
--- NPC Victorious Challenger /add script and gossip_menu_option for daily quest and update gossip_menu_option for normal quest (WotLK)
-UPDATE gossip_menu_option SET action_script_id=9865, cond_1=9, cond_1_val_1=12971 WHERE menu_id=9865 AND id=0;
-DELETE FROM gossip_menu_option WHERE menu_id=9865 AND id=1;
-INSERT INTO gossip_menu_option (menu_id,id,option_icon,option_text,option_id,npc_option_npcflag,action_menu_id,action_poi_id,action_script_id,box_coded,box_money,box_text,cond_1,cond_1_val_1,cond_1_val_2,cond_2,cond_2_val_1,cond_2_val_2,cond_3,cond_3_val_1,cond_3_val_2) VALUES
-(9865,1,0,'Let\'s do this, sister.',1,1,0,0,9865,0,0,'',9,13423,0,0,0,0,0,0,0);
-
-DELETE FROM gossip_scripts WHERE id=9865;
-INSERT INTO gossip_scripts (id,delay,command,datalong,datalong2,datalong3,datalong4,data_flags,dataint,dataint2,dataint3,dataint4,x,y,z,o,comments) VALUES 
-(9865,0,22,14,30012,20,0,0x07,0,0,0,0,0,0,0,0,'change faction'),
-(9865,0,0,0,30012,20,0,0,2000000280,2000000281,2000000282,2000000283,0,0,0,0,'Say'),
-(9865,1,26,0,30012,20,0,0,0,0,0,0,0,0,0,0,'start attack');
-
-DELETE FROM db_script_string WHERE entry IN (2000000280,2000000281,2000000282,2000000283);
-INSERT INTO db_script_string (entry,content_default) VALUES
-(2000000280,'Good luck... You\'ll need it!'),
-(2000000281,'May the best win!'),
-(2000000282,'You will not defeat me!'),
-(2000000283,'You\'re not worthy of Thorim!');
 
 -- NPC KRONK
 UPDATE gossip_menu_option SET action_menu_id=8757 WHERE menu_id=8679 AND id=0;
@@ -4359,17 +3724,6 @@ INSERT INTO gossip_menu_option (menu_id,id,option_icon,option_text,option_id,npc
 -- NPC Rayge
 UPDATE creature_template SET MovementType=0 WHERE entry=17885;
 
--- NPC Kurzel
-UPDATE creature_template SET minlevel=70, maxlevel=70, minhealth=6986, maxhealth=6986 WHERE entry=26664;
-
-DELETE FROM gossip_menu_option WHERE menu_id=9690;
-INSERT INTO gossip_menu_option (menu_id,id,option_icon,option_text,option_id,npc_option_npcflag,action_menu_id,action_poi_id,action_script_id,box_coded,box_money,box_text,cond_1,cond_1_val_1,cond_1_val_2,cond_2,cond_2_val_1,cond_2_val_2,cond_3,cond_3_val_1,cond_3_val_2) VALUES
-(9690,0,0,'I lost my cloth. Can you rip me off another piece?',1,1,-1,0,9690,0,0,'',9,13129,0,0,0,0,0,0,0);
-
-DELETE FROM gossip_scripts WHERE id=9690;
-INSERT INTO gossip_scripts (id,delay,command,datalong,datalong2,datalong3,datalong4,data_flags,dataint,dataint2,dataint3,dataint4,x,y,z,o,comments) VALUES 
-(9690,0,17,43214,1,0,0,0,0,0,0,0,0,0,0,0,'Create Kurzel\'s Blouse Scrap');
-
 -- NPC Lunar Festival Harbinger
 -- only quest 8867 must be rewarded
 Update gossip_menu_option SET action_menu_id=-1, action_script_id=6918, cond_1=8, cond_1_val_1=8867 WHERE menu_id=6918;
@@ -4519,7 +3873,6 @@ UPDATE creature_template SET gossip_menu_id=6647 WHERE entry=23128;
 DELETE FROM gossip_menu_option WHERE menu_id=6647;
 INSERT INTO gossip_menu_option (menu_id,id,option_icon,option_text,option_id,npc_option_npcflag,action_menu_id,action_poi_id,action_script_id,box_coded,box_money,box_text,cond_1,cond_1_val_1,cond_1_val_2,cond_2,cond_2_val_1,cond_2_val_2,cond_3,cond_3_val_1,cond_3_val_2) VALUES 
 (6647,1,3,'I would like to train further in the ways of the Light.',5,16,0,0,0,0,0,'',0,0,0,0,0,0,0,0,0),
-(6647,2,0,'Learn about Dual Talent Specialization.',1,1,10371,0,0,0,0,'',15,40,1,17,63680,1,14,0,2),
 (6647,3,0,'I wish to unlearn my talents.',1,1,4461,0,0,0,0,'',15,10,1,14,0,2,0,0,0);
 
 DELETE FROM gossip_menu WHERE entry=6647 AND text_id=9193;
@@ -4992,40 +4345,32 @@ INSERT IGNORE INTO game_event_creature (guid, event) VALUES
 UPDATE gossip_menu_option SET cond_1=19, cond_1_val_1=6881, cond_1_val_2=0, cond_2=24, cond_2_val_1=17126, cond_2_val_2=1, cond_3=0, cond_3_val_1=0 WHERE action_script_id=5;
 
 -- NeatElves
--- Orb of Command
-DELETE FROM gossip_menu WHERE entry=6001;
-INSERT INTO gossip_menu (entry, text_id, cond_1, cond_1_val_1, cond_1_val_2, cond_2, cond_2_val_1, cond_2_val_2) VALUES
-(6001, 7154, 0, 0, 0, 0, 0, 0),
-(6001, 7155, 8, 7761, 0, 0, 0, 0);
-DELETE FROM gossip_menu_option WHERE menu_id=6001;
-INSERT INTO gossip_menu_option (menu_id, id, option_icon, option_text, option_id, npc_option_npcflag, action_menu_id, action_poi_id, action_script_id, box_coded, box_money, box_text, cond_1, cond_1_val_1, cond_1_val_2, cond_2, cond_2_val_1, cond_2_val_2, cond_3, cond_3_val_1, cond_3_val_2) VALUES
-(6001, 0, 0, '<Put your hand on the sphere.>', 1, 1, -1, 0, 6001, 0, 0, NULL, 8, 7761, 0, 0, 0, 0, 0, 0, 0);
-DELETE FROM gossip_scripts WHERE id=6001;
-INSERT INTO gossip_scripts (id, delay, command, datalong, datalong2, datalong3, datalong4, data_flags, dataint, dataint2, dataint3, dataint4, x, y, z, o, comments) VALUES
-(6001, 0, 15, 23460, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '');
--- Lunaclaw Spirit
-DELETE FROM gossip_scripts WHERE id IN (386201, 386202);
-INSERT INTO gossip_scripts (id, delay, command, datalong, datalong2, datalong3, datalong4, data_flags, dataint, dataint2, dataint3, dataint4, x, y, z, o, comments) VALUES
-(386201, 0, 7, 6001, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Spirit of Lunaclaw - Questcredit (Alliance)'),
-(386202, 0, 7, 6002, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Spirit of Lunaclaw - Questcredit (Horde)');
-DELETE FROM gossip_menu_option WHERE menu_id=3862;
-INSERT INTO gossip_menu_option (menu_id, id, option_icon, option_text, option_id, npc_option_npcflag, action_menu_id, action_poi_id, action_script_id, box_coded, box_money, box_text, cond_1, cond_1_val_1, cond_1_val_2, cond_2, cond_2_val_1, cond_2_val_2, cond_3, cond_3_val_1, cond_3_val_2) VALUES
-(3862, 0, 0, 'You have fought well, spirit.  I ask you to grant me the strength of your body and the strength of your heart.', 1, 1, 3863, 0, 386201, 0, 0, '', 9, 6001, 1, 0, 0, 0, 0, 0, 0),
-(3862, 1, 0, 'You have fought well, spirit.  I ask you to grant me the strength of your body and the strength of your heart.', 1, 1, 3863, 0, 386202, 0, 0, '', 9, 6002, 1, 0, 0, 0, 0, 0, 0);
+-- Orb of Command - ToDo: fix this
+-- DELETE FROM gossip_menu WHERE entry=6001;
+-- INSERT INTO gossip_menu (entry, text_id, cond_1, cond_1_val_1, cond_1_val_2, cond_2, cond_2_val_1, cond_2_val_2) VALUES
+-- (6001, 7154, 0, 0, 0, 0, 0, 0),
+-- (6001, 7155, 8, 7761, 0, 0, 0, 0);
+-- DELETE FROM gossip_menu_option WHERE menu_id=6001;
+-- INSERT INTO gossip_menu_option (menu_id, id, option_icon, option_text, option_id, npc_option_npcflag, action_menu_id, action_poi_id, action_script_id, box_coded, box_money, box_text, cond_1, cond_1_val_1, cond_1_val_2, cond_2, cond_2_val_1, cond_2_val_2, cond_3, cond_3_val_1, cond_3_val_2) VALUES
+-- (6001, 0, 0, '<Put your hand on the sphere.>', 1, 1, -1, 0, 6001, 0, 0, NULL, 8, 7761, 0, 0, 0, 0, 0, 0, 0);
+-- DELETE FROM gossip_scripts WHERE id=6001;
+-- INSERT INTO gossip_scripts (id, delay, command, datalong, datalong2, datalong3, datalong4, data_flags, dataint, dataint2, dataint3, dataint4, x, y, z, o, comments) VALUES
+-- (6001, 0, 15, 23460, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '');
+-- -- Lunaclaw Spirit
+-- DELETE FROM gossip_scripts WHERE id IN (386201, 386202);
+-- INSERT INTO gossip_scripts (id, delay, command, datalong, datalong2, datalong3, datalong4, data_flags, dataint, dataint2, dataint3, dataint4, x, y, z, o, comments) VALUES
+-- (386201, 0, 7, 6001, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Spirit of Lunaclaw - Questcredit (Alliance)'),
+-- (386202, 0, 7, 6002, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Spirit of Lunaclaw - Questcredit (Horde)');
+-- DELETE FROM gossip_menu_option WHERE menu_id=3862;
+-- INSERT INTO gossip_menu_option (menu_id, id, option_icon, option_text, option_id, npc_option_npcflag, action_menu_id, action_poi_id, action_script_id, box_coded, box_money, box_text, cond_1, cond_1_val_1, cond_1_val_2, cond_2, cond_2_val_1, cond_2_val_2, cond_3, cond_3_val_1, cond_3_val_2) VALUES
+-- (3862, 0, 0, 'You have fought well, spirit.  I ask you to grant me the strength of your body and the strength of your heart.', 1, 1, 3863, 0, 386201, 0, 0, '', 9, 6001, 1, 0, 0, 0, 0, 0, 0),
+-- (3862, 1, 0, 'You have fought well, spirit.  I ask you to grant me the strength of your body and the strength of your heart.', 1, 1, 3863, 0, 386202, 0, 0, '', 9, 6002, 1, 0, 0, 0, 0, 0, 0);
 -- Q3377 & npc_zamael_lunthistle
 UPDATE gossip_menu_option SET cond_1=9,cond_1_val_1=3377, cond_1_val_2=1 WHERE menu_id=1285 AND id=0;
 UPDATE gossip_menu_option SET action_menu_id= -1, action_script_id=1286 WHERE menu_id=1286 AND id=0;
 DELETE FROM gossip_scripts WHERE id=1286;
 INSERT INTO gossip_scripts (id, delay, command, datalong, datalong2, comments) VALUES
 (1286, 0, 7, 3377, 5, 'Zamael Lunthistle - Questcredit (3377)');
-
--- Fix a few crash auras from map 601 (Ahn'kahet)
-DELETE FROM creature_addon WHERE guid IN (SELECT guid FROM creature WHERE id IN (29062, 29063, 29064, 29096, 29097, 29098));
-DELETE FROM creature_template_addon WHERE entry IN (29062, 29063, 29064, 29096, 29097, 29098);
-INSERT INTO creature_template_addon (entry, b2_0_sheath) VALUES
-(29062, 1), (29063, 1), (29064, 1), (29096, 1), (29097, 1), (29098, 1);
--- Fix more crash auras from DK-starting zone
-UPDATE creature_addon SET auras=NULL WHERE auras LIKE '1604' OR auras LIKE '51399';
 
 
 -- Shin
@@ -5117,16 +4462,10 @@ UPDATE gameobject SET spawnMask=spawnMask|2 WHERE id IN (183295, 183296);
 DELETE FROM creature_linking_template WHERE
  (entry = 19224 AND map = 555)
  OR
- (entry = 19226 AND map = 555)
- OR
- (entry = 28695 AND map = 602)
- OR
- (entry = 28681 AND map = 602);
+ (entry = 19226 AND map = 555);
 INSERT INTO creature_linking_template (entry, map, master_entry, flag) VALUES
 (19224, 555, 18732, 4112), -- void portal (despawn on death / evade)
-(19226, 555, 18732, 4112), -- void traveler (despawn on death / evade)
-(28695, 602, 28587, 4112), -- molten golem (despawn on death / evade)
-(28681, 602, 28587, 4112); -- brittle golem (despawn on death / evade)
+(19226, 555, 18732, 4112); -- void traveler (despawn on death / evade)
 
 -- Spell script target for Grandmaster Vorpil - heroic entry
 DELETE FROM spell_script_target WHERE entry = 39364;
@@ -5288,8 +4627,9 @@ INSERT INTO pool_gameobject VALUES (26210,1900,0,'The Deadmines - Large Battered
 INSERT INTO pool_gameobject VALUES (30538,1900,0,'The Deadmines - Large Battered Chest 3');
 INSERT INTO pool_gameobject VALUES (30540,1900,0,'The Deadmines - Large Battered Chest 4');
 INSERT INTO pool_gameobject VALUES (34850,1900,0,'The Deadmines - Large Battered Chest 5');
-INSERT INTO pool_gameobject VALUES (92216,1900,0,'The Deadmines - Large Battered Chest 6');
-INSERT INTO pool_gameobject VALUES (92217,1900,0,'The Deadmines - Large Battered Chest 7');
+-- ToDo: fix these spawns
+-- INSERT INTO pool_gameobject VALUES (92216,1900,0,'The Deadmines - Large Battered Chest 6');
+-- INSERT INTO pool_gameobject VALUES (92217,1900,0,'The Deadmines - Large Battered Chest 7');
 
 -- Create NPC Spawn Pool for Rare NPC Miner Johnson (Either Normal NPC Spawns or Miner Johnson)
 -- --------------------------------------------------------------------------------------------
@@ -5298,3 +4638,31 @@ INSERT INTO pool_template VALUES (1499,1,'The Deadmines - Miner Johnson');
 DELETE FROM pool_creature WHERE guid IN (84079,79179);
 INSERT INTO pool_creature VALUES (84079,1499,0,'The Deadmines - Miner Johnson');
 INSERT INTO pool_creature VALUES (79179,1499,30,'The Deadmines - Defias Miner');
+
+
+
+
+
+-- Other updates - Fix DB errors
+UPDATE creature SET curmana=2236 WHERE guid=79290;
+UPDATE creature SET curhealth=5312 WHERE guid=99645;
+UPDATE creature SET curhealth=5312 WHERE guid=99644;
+UPDATE creature SET spawndist=0 WHERE guid=56606;
+UPDATE creature SET spawndist=0 WHERE guid=56607;
+UPDATE creature SET curhealth=4200, curmana=10104 WHERE guid IN (84527,99456);
+UPDATE creature SET curhealth=64 WHERE guid IN (84526,99455);
+UPDATE creature SET curhealth=3632 WHERE guid=84525;
+UPDATE creature SET curhealth=3632 WHERE id=11279;
+UPDATE creature SET curhealth=6900 WHERE id=18759;
+UPDATE creature SET curhealth=8 WHERE id=18757;
+UPDATE creature SET curhealth=2400 WHERE guid=44548;
+UPDATE creature SET curhealth=5312 WHERE guid=99647;
+UPDATE creature SET curhealth=13000 WHERE guid=99646;
+UPDATE creature SET curhealth=3632, curmana=0 WHERE guid=84525;
+UPDATE creature SET curhealth=4200, curmana=10104 WHERE id=11283;
+UPDATE creature SET curhealth=53, curmana=12000 WHERE guid=99643;
+UPDATE creature SET curhealth=3632, curmana=0 WHERE guid=99454;
+UPDATE quest_template SET ReqSourceCount2=0 WHERE entry=9667;
+DELETE FROM creature_movement_scripts WHERE id=1;
+INSERT INTO creature_movement_scripts (id, delay, command, datalong, datalong2, datalong3, datalong4, data_flags, dataint, dataint2, dataint3, dataint4, x, y, z, o, comments) VALUES
+(1,0,18,0,0,0,0,0,0,0,0,0,0,0,0,0,'despawn self, this script is used by many creatures');
