@@ -2253,7 +2253,7 @@ INSERT INTO creature_linking_template (entry, map, master_entry, flag, search_ra
 (16360,533,15932,4112,0);
 UPDATE creature_template SET MovementType = 0 WHERE entry = 16697;
 delete from creature_linking_template where entry in (16063,16064,16065,16775,16776,16777,16778);
-insert into creature_Linking_template values
+insert into creature_linking_template values
 (16063,533,16062,143,0),
 (16064,533,16062,143,0),
 (16065,533,16062,143,0),
