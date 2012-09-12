@@ -4334,9 +4334,9 @@ INSERT INTO creature_movement (id, point, position_x, position_y, position_z, wa
 (57506,17,228.325928,2787.284912,122.300629,0,0,0,0,0,0,0,0,0,0,3.461657,0,0),
 (57506,18,211.914352,2785.854248,118.772690,0,0,0,0,0,0,0,0,0,0,3.395684,0,0),
 (57506,19,197.298004,2781.472900,115.939362,0,0,0,0,0,0,0,0,0,0,3.554334,0,0);
-DELETE FROM creature_linking WHERE guid =57507;
-INSERT INTO creature_linking (guid, master_guid, flag) VALUES    
-(57507,57506,515); -- Thrallmar Grunt #3
+-- DELETE FROM creature_linking WHERE guid =57507;
+-- INSERT INTO creature_linking (guid, master_guid, flag) VALUES    
+-- (57507,57506,515); -- Thrallmar Grunt #3
 -- wps for Thrallmar Grunt #4 + link to Grunt #5
 UPDATE creature SET MovementType =2, spawndist =0 WHERE guid =57528;
 DELETE FROM creature_movement WHERE id =57528;
@@ -4372,9 +4372,9 @@ INSERT INTO creature_movement (id, point, position_x, position_y, position_z, wa
 (57528,29,80.618973,2714.300293,85.745712,0,0,0,0,0,0,0,0,0,0,0.816860,0,0),
 (57528,30,90.848297,2723.563477,88.429405,0,0,0,0,0,0,0,0,0,0,1.348575,0,0),
 (57528,31,104.694122,2746.943604,93.974663,0,0,0,0,0,0,0,0,0,0,0.583416,0,0);
-DELETE FROM creature_linking WHERE guid =57527;
-INSERT INTO creature_linking (guid, master_guid, flag) VALUES    
-(57527,57528,515); -- Thrallmar Grunt #4
+-- DELETE FROM creature_linking WHERE guid =57527;
+-- INSERT INTO creature_linking (guid, master_guid, flag) VALUES    
+-- (57527,57528,515); -- Thrallmar Grunt #4
 -- The Stair of Destiny (Dark portal) HP - Guards should not attack any player.
 UPDATE creature SET MovementType =2, spawndist =0 WHERE guid IN (57891,57890,57542,57543,57492);
 DELETE FROM creature_movement WHERE id IN (57891,57890,57542,57543,57492);
@@ -4563,11 +4563,11 @@ INSERT INTO creature_movement (id, point, position_x, position_y, position_z, wa
 (57597,34,13.703642,2642.759766,71.984863,0,0,0,0,0,0,0,0,0,0,0.993395,0,0),
 (57597,35,25.815166,2656.505615,74.407036,0,0,0,0,0,0,0,0,0,0,0.603052,0,0),
 (57597,36,45.912689,2669.561279,77.863663,0,0,0,0,0,0,0,0,0,0,0.575563,0,0);
-DELETE FROM creature_linking WHERE guid IN (57594,57595,57596);
-INSERT INTO creature_linking (guid, master_guid, flag) VALUES    
-(57596,57597,515), -- Thrallmar Wolf Rider #2
-(57595,57596,515), -- Thrallmar Wolf Rider #3
-(57594,57595,515); -- Thrallmar Wolf Rider #4
+-- DELETE FROM creature_linking WHERE guid IN (57594,57595,57596);
+-- INSERT INTO creature_linking (guid, master_guid, flag) VALUES    
+-- (57596,57597,515), -- Thrallmar Wolf Rider #2
+-- (57595,57596,515), -- Thrallmar Wolf Rider #3
+-- (57594,57595,515); -- Thrallmar Wolf Rider #4
 -- Brother Daniels 
 UPDATE creature SET MovementType =2, spawndist =0 WHERE guid =69643;
 DELETE FROM creature_movement WHERE id =69643;
