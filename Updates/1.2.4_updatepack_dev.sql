@@ -20,3 +20,10 @@ UPDATE quest_template SET ReqCreatureOrGOId1=12299 WHERE entry=6124;
 UPDATE quest_template SET ReqCreatureOrGOId1=12297 WHERE entry=6129;
 UPDATE quest_template SET ReqCreatureOrGOId1=16534 WHERE entry=9303;
 
+-- Varimathras
+DELETE FROM creature WHERE id=2425;
+INSERT INTO creature (`id`,`map`,`spawnMask`,`modelid`,`equipment_id`,`position_x`,`position_y`,`position_z`,`orientation`,`spawntimesecs`,`spawndist`,`currentwaypoint`,`curhealth`,`curmana`,`DeathState`,`MovementType`) VALUES
+(2425, 0, 1, 0, 0, 1287.7, 333.589, -59.9998, 0.959931, 180, 0, 0, 18900, 0, 0, 0);
+
+UPDATE creature_template SET spell1=42464 WHERE entry=23811;
+
