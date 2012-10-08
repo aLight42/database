@@ -56,3 +56,85 @@ INSERT INTO spell_scripts VALUES
 (19395,0,15,11756,0,0,0,0,0,0,0,0,0,0,0,0,'Gordunni Trap - Cast Summon Gordunni chest (COBALT)');
 
 
+
+-- City of Lights (ytdb)
+UPDATE creature_template SET faction_A=1773, faction_H=1773, speed_walk=1.8 WHERE entry=19685;
+-- The demoniac scryer
+UPDATE creature_template SET faction_A=113, faction_H=113, npcflag=1 WHERE entry=22258;
+
+-- Whelps
+UPDATE creature_template SET armor=1937, mindmg=52, maxdmg=69, attackpower=128, minrangedmg=36, maxrangedmg=53, rangedattackpower=13 WHERE entry=4324;
+-- Basilisk
+UPDATE creature_template SET armor=2528, mindmg=72, maxdmg=96, attackpower=174, minrangedmg=49, maxrangedmg=73, rangedattackpower=16 WHERE entry=1551;
+-- Treant ally
+UPDATE creature_template SET armor=1008, maxdmg=48, attackpower=86, minrangedmg=24, maxrangedmg=36, rangedattackpower=6 WHERE entry=5806;
+
+-- Acidig venom sack drop
+DELETE FROM creature_loot_template WHERE (entry=4380) AND (item=5959);
+INSERT INTO creature_loot_template (entry, item, ChanceOrQuestChance, groupid, mincountOrRef, maxcount, lootcondition, condition_value1, condition_value2, condition_id)
+VALUES (4380, 5959, -25, 0, 1, 1, 0, 0, 0, 0);
+DELETE FROM creature_loot_template WHERE (entry=4379) AND (item=5959);
+INSERT INTO creature_loot_template (entry, item, ChanceOrQuestChance, groupid, mincountOrRef, maxcount, lootcondition, condition_value1, condition_value2, condition_id)
+VALUES (4379, 5959, -25, 0, 1, 1, 0, 0, 0, 0);
+DELETE FROM creature_loot_template WHERE (entry=4376) AND (item=5959);
+INSERT INTO creature_loot_template (entry, item, ChanceOrQuestChance, groupid, mincountOrRef, maxcount, lootcondition, condition_value1, condition_value2, condition_id)
+VALUES (4376, 5959, -25, 0, 1, 1, 0, 0, 0, 0);
+
+-- Mission - the abyssla shelf
+update spell_area set gender=2 where spell=33836;
+UPDATE quest_template SET SpecialFlags=0 WHERE entry=10162;
+
+-- JW trainer
+DELETE FROM npc_trainer WHERE (entry=19778);
+INSERT INTO npc_trainer (entry, spell, spellcost, reqskill, reqskillvalue, reqlevel) VALUES 
+(19778, 25245, 10, 0, 0, 5),
+(19778, 25246, 500, 755, 50, 10),
+(19778, 25278, 200, 755, 50, 0),
+(19778, 25280, 200, 755, 50, 0),
+(19778, 25283, 100, 755, 30, 0),
+(19778, 25284, 400, 755, 60, 0),
+(19778, 25287, 400, 755, 70, 0),
+(19778, 25305, 1000, 755, 90, 0),
+(19778, 25317, 600, 755, 80, 0),
+(19778, 25318, 800, 755, 100, 0),
+(19778, 25321, 1500, 755, 120, 0),
+(19778, 25490, 300, 755, 50, 0),
+(19778, 25498, 600, 755, 110, 0),
+(19778, 25613, 1200, 755, 135, 0),
+(19778, 25615, 1500, 755, 150, 0),
+(19778, 25620, 2000, 755, 170, 0),
+(19778, 25621, 2000, 755, 180, 0),
+(19778, 26872, 2500, 755, 200, 0),
+(19778, 26874, 5000, 755, 210, 0),
+(19778, 26876, 3000, 755, 220, 0),
+(19778, 26880, 3500, 755, 225, 0),
+(19778, 26883, 4000, 755, 235, 0),
+(19778, 26885, 5000, 755, 240, 0),
+(19778, 26902, 10000, 755, 260, 0),
+(19778, 26903, 10000, 755, 275, 0),
+(19778, 26907, 10000, 755, 280, 0),
+(19778, 26908, 12000, 755, 280, 0),
+(19778, 26911, 15000, 755, 290, 0),
+(19778, 26926, 50, 755, 5, 0),
+(19778, 26927, 300, 755, 50, 0),
+(19778, 26928, 100, 755, 30, 0),
+(19778, 28896, 5000, 755, 125, 20),
+(19778, 28899, 50000, 755, 200, 35),
+(19778, 31252, 100, 755, 20, 5),
+(19778, 32178, 100, 755, 20, 0),
+(19778, 32179, 100, 755, 20, 0),
+(19778, 32801, 200, 755, 50, 0),
+(19778, 32807, 600, 755, 110, 0),
+(19778, 32808, 2000, 755, 175, 0),
+(19778, 32809, 3500, 755, 225, 0),
+(19778, 34955, 2500, 755, 180, 0),
+(19778, 34959, 3000, 755, 200, 0),
+(19778, 34960, 10000, 755, 280, 0),
+(19778, 34961, 10000, 755, 290, 0),
+(19778, 36523, 600, 755, 75, 0),
+(19778, 36524, 800, 755, 105, 0),
+(19778, 36525, 4000, 755, 230, 0),
+(19778, 36526, 10000, 755, 265, 0),
+(19778, 37818, 500, 755, 65, 0),
+(19778, 38175, 650, 755, 80, 0);
+
