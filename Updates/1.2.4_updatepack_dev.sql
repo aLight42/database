@@ -138,3 +138,32 @@ INSERT INTO npc_trainer (entry, spell, spellcost, reqskill, reqskillvalue, reqle
 (19778, 37818, 500, 755, 65, 0),
 (19778, 38175, 650, 755, 80, 0);
 
+
+
+-- quest 9816
+delete from event_scripts where id = 11424 and command = 8;
+insert into event_scripts (id, delay, command, datalong, comments) values
+(11424,20,8,18152,'');
+-- quest 9410
+UPDATE gameobject SET position_x=-17.6295, position_y=3803.27, position_z= 94.1429 WHERE guid=99909;
+-- quest 10447
+UPDATE quest_template SET ReqCreatureOrGOId1=0, ReqCreatureOrGOCount1=0, ReqSpellCast1=0, ReqSpellCast2=0 WHERE entry=10447;
+-- quest 10852
+-- DELETE FROM creature_loot_template WHERE (entry=18453) AND (item=31655);
+-- INSERT INTO creature_loot_template (entry, item, ChanceOrQuestChance, groupid, mincountOrRef, maxcount, lootcondition, condition_value1, condition_value2, condition_id)
+-- VALUES (18453, 31655, -33, 0, 1, 1, 0, 0, 0, 0);
+-- DELETE FROM creature_loot_template WHERE (entry=18452) AND (item=31655);
+-- INSERT INTO creature_loot_template (entry, item, ChanceOrQuestChance, groupid, mincountOrRef, maxcount, lootcondition, condition_value1, condition_value2, condition_id)
+-- VALUES (18452, 31655, -33, 0, 1, 1, 0, 0, 0, 0);
+-- quest 9927
+delete from event_scripts where id =11669;
+insert into event_scripts (id, delay, command, datalong, datalong2, comments) values
+(11669,1,8,18388,1,'');
+-- quest 1249
+UPDATE quest_template SET ReqCreatureOrGOId1=0, ReqCreatureOrGOCount1=0, SpecialFlags=2 WHERE entry=1249;
+-- quest 9910
+DELETE FROM gameobject WHERE id=182263;
+INSERT INTO gameobject (id,map,spawnMask,position_x,position_y,position_z,orientation,rotation0,rotation1,rotation2,rotation3,spawntimesecs,animprogress,state) VALUES
+(182263, 530, 1,  -2532.99, 6306.9, 14.028, 2.81871, 0, 0, 0.986997, 0.160741, 180, 100, 1),
+(182263, 530, 1,  -2474.44, 6111.16, 91.7629, 3.66388, 0, 0, 0.966095, -0.258186, -125, 100, 1),
+(182263, 530, 1,  -2533.21, 6168.56, 59.9387, 3.75028, 0, 0, 0.954044, -0.299667, -125, 100, 1);
