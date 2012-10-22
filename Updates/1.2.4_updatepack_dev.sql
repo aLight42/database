@@ -167,3 +167,62 @@ INSERT INTO gameobject (id,map,spawnMask,position_x,position_y,position_z,orient
 (182263, 530, 1,  -2532.99, 6306.9, 14.028, 2.81871, 0, 0, 0.986997, 0.160741, 180, 100, 1),
 (182263, 530, 1,  -2474.44, 6111.16, 91.7629, 3.66388, 0, 0, 0.966095, -0.258186, -125, 100, 1),
 (182263, 530, 1,  -2533.21, 6168.56, 59.9387, 3.75028, 0, 0, 0.954044, -0.299667, -125, 100, 1);
+
+
+
+-- quest 9932, 9931
+delete from event_scripts where id in (11675,11674);
+insert into event_scripts (id, command, datalong, comments) values
+-- (11674,8,18393,'Quest 9931 credit'),
+(11675,8,18395,'Quest 9932 credit');
+-- quest 11147
+delete from event_scripts where id = 15363;
+insert into event_scripts (id, delay, command, datalong, datalong2, x, y, z, o, comments) values
+(15363,1,10,23741,60000,-2471.05,-3170.48,33.8162,0.462961,''),
+(15363,2,10,23741,60000,-2458.02,-3184.27,33.1414,3.33516,''),
+(15363,3,10,23741,60000,-2450.9,-3167.18,35.7501,1.62142,''),
+(15363,4,10,23741,60000,-2452.22,-3135.79,35.3755,5.06382,''),
+(15363,5,10,23741,60000,-2467.96,-3151.07,34.4696,5.80917,''),
+(15363,6,8,23727,0,0,0,0,0,'');
+-- quest 11133
+update gossip_menu_option set action_script_id = 8851 where menu_id = 8851;
+delete from gossip_scripts where id = 8851;
+insert into gossip_scripts (id, delay, command, datalong, datalong2, buddy_entry, search_radius, data_flags, dataint, dataint2, dataint3, dataint4, comments) values
+(8851,0,0,0,0,4979,10,0,2000001231,0,0,0,'Say text'),
+(8851,1,0,2,0,4979,10,0,2000001232,0,0,0,'Say emote'),
+(8851,3,0,0,0,4979,10,0,2000000763,2000000764,2000001233,2000000766,'Say text'),
+(8851,5,0,0,0,4979,10,0,2000000767,2000000768,2000000765,2000001234,'Say text'),
+(8851,0,29,1,2,4979,10,0,0,0,0,0,'change NPC_flag'),
+(8851,0,15,42734,0,0,0,6,0,0,0,0,''),
+(8851,0,8,4979,0,0,0,0,0,0,0,0,''),
+(8851,120,29,1,0,4979,1,0,0,0,0,0,'change NPC_flag');
+delete from db_script_string where entry in (2000001231,2000001232,2000000763,2000000767,2000000764,2000000768,2000001233,2000000765,2000000766,2000001234);
+insert into db_script_string (entry, content_default) values
+(2000000763,'...to create a fund for the purchase of hair gel? I like my hair the way it is, thanks!'),
+(2000000764,'...as a deserter, you\'ll enjoy activities like tethered swimming and dog grooming? How ridiculous!'),
+(2000000765,'I\'d never join anything like this. Better keep this, though. It\'ll come in handy in the privy...'),
+(2000000766,'...the deserters seek a Theramore where citizens will be free to juggle at all hours of the day? What is this nonsense?'),
+(2000000767,'That\'s the funniest thing I\'ve read in a long time. You\'ve just made my day!'),
+(2000000768,'This... this is a joke, right?'),
+(2000001231,'Hey, thanks.'),
+(2000001232,'%s reads the leaflet.'),
+(2000001233,'...receive 50 percent of the clothes deserters? What is this rubbish?'),
+(2000001234,'What a crazy crowd! You really believe in this nonsense?');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
