@@ -209,18 +209,50 @@ insert into db_script_string (entry, content_default) values
 (2000001233,'...receive 50 percent of the clothes deserters? What is this rubbish?'),
 (2000001234,'What a crazy crowd! You really believe in this nonsense?');
 
+-- quest 9931
+UPDATE quest_template SET ReqSpellCast1=0 WHERE entry=9931;
+
+-- quest 10390
+delete from event_scripts where id = 13052;
+insert into event_scripts (id, delay, command, datalong, datalong2, x, y, z, o, comments) values
+(13052,3,10,18430,180000,2534.55,4007.9,133.209,4.06749,''),
+(13052,15,10,18431,180000,2531.86,4013.56,133.815,4.35965,''),
+(13052,30,10,18394,180000,2533.75,4007.99,133.208,3.41796,''),
+(13052,45,10,18430,180000,2528.13,3999.24,132.698,0.89761,''),
+(13052,60,10,18431,180000,2532.62,4002.53,132.828,1.9312,''),
+(13052,75,10,18394,180000,2529.32,4001.44,132.815,1.40734,''),
+(13052,90,10,18430,180000,2526.62,4008.99,133.473,5.46628,''),
+(13052,105,10,18431,180000,2522.55,4005.96,133.451,5.5943,''),
+(13052,120,10,18394,180000,2525.31,4007.75,133.42,5.94066,'');
+
+-- quest 10248
+delete from event_scripts where id = 12821;
+insert into event_scripts (id, delay, command, datalong, datalong2, x, y, z, o, comments) values
+(12821,0,10,19851,180000,3096,3400,105.4,0,'');
 
 
+-- guild banks (udb)
+delete from gameobject where id in (188126,188127);
+INSERT INTO `gameobject` (`id`,`map`,`spawnMask`,`position_x`,`position_y`,`position_z`,`orientation`,`rotation0`,`rotation1`,`rotation2`,`rotation3`,`spawntimesecs`,`animprogress`,`state`) VALUES
+(188126,530,1,-1709.69,5461.01,-7.92767,1.85005,0,0,0.798635,0.601815,180,255,1),
+(188126,530,1,-1745.81,5533.84,-7.92614,-0.977383,0,0,-0.469471,0.882948,180,255,1),
+(188127,530,1,-1987.36,5320.47,-6.77673,-1.23918,0,0,-0.580703,0.814116,180,255,1),
+(188127,530,1,-2025.81,5396.9,-6.56243,2.11185,0,0,0.870356,0.492424,180,255,1);
 
+-- Fix battlemasters
+delete from game_event_creature where guid in (select guid from creature a join creature_template b on a.id = b.entry where b.subname like '%battlemaster');
 
+-- quest 10570 (ytdb)
+delete from event_scripts where id=13888;
+insert into event_scripts (id, delay, command, datalong, datalong2, x, y, z, o, comments) values
+(13888,5,10,21409,180000,-4055.88,1518.16,91.88,1.5,'summon Envoy Icarius');
 
-
-
-
-
-
-
-
+-- quest 11401,11404,11405 (ytdb)
+delete from quest_end_scripts where id in (11401,11404,11405);
+insert into quest_end_scripts (id, delay, command, datalong, datalong2, x, y, z, o, comments) values
+(11401,0,10,23682,1200000,1799.04,1377.62,18.8875,4.65,'summon Headless Horseman'),
+(11404,0,10,23682,1200000,1799.04,1377.62,18.8875,4.65,'summon Headless Horseman'),
+(11405,0,10,23682,1200000,1799.04,1377.62,18.8875,4.65,'summon Headless Horseman');
 
 
 
