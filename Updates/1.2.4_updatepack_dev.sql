@@ -225,6 +225,17 @@ insert into event_scripts (id, delay, command, datalong, datalong2, x, y, z, o, 
 (13052,105,10,18431,180000,2522.55,4005.96,133.451,5.5943,''),
 (13052,120,10,18394,180000,2525.31,4007.75,133.42,5.94066,'');
 
+-- Creature id: 20243
+UPDATE creature_template SET AIName='EventAI' WHERE entry=20243;
+DELETE FROM creature_ai_scripts WHERE creature_id=20243;
+INSERT INTO creature_ai_scripts VALUES 
+('2024301','20243','11','0','100','0','0','0','0','0','21','0','0','0','20','0','0','0','18','512','0','0','Scrapped Fel Reaver - Set Combat Movement false, Auto Attack false and Unit Flag Passive on Spawned'),
+('2024302','20243','8','0','100','0','35282','-1','0','0','19','512','0','0','0','0','0','0','0','0','0','0','Scrapped Fel Reaver - Remove Unit Flag Passive on Spell Fel Zapper Hit'),
+('2024303','20243','7','0','100','0','0','0','0','0','18','512','0','0','0','0','0','0','0','0','0','0','Scrapped Fel Reaver - Set Unit Flag Passive on Evade');
+
+
+
+
 -- quest 10248
 delete from event_scripts where id = 12821;
 insert into event_scripts (id, delay, command, datalong, datalong2, x, y, z, o, comments) values
@@ -253,8 +264,25 @@ insert into quest_end_scripts (id, delay, command, datalong, datalong2, x, y, z,
 (11401,0,10,23682,1200000,1799.04,1377.62,18.8875,4.65,'summon Headless Horseman'),
 (11404,0,10,23682,1200000,1799.04,1377.62,18.8875,4.65,'summon Headless Horseman'),
 (11405,0,10,23682,1200000,1799.04,1377.62,18.8875,4.65,'summon Headless Horseman');
+UPDATE quest_template SET CompleteScript=11401 WHERE entry=11401;
+UPDATE quest_template SET CompleteScript=11404 WHERE entry=11404;
+UPDATE quest_template SET CompleteScript=11405 WHERE entry=11405;
 
 
 
+-- quest 10223
+delete from spell_script_target where entry=34526;
+insert into spell_script_target values
+(34526, 1, 19723),
+(34526, 1, 19724);
+delete from spell_scripts where id = 34526;
+insert into spell_scripts (id, delay, command, datalong, data_flags, comments) values
+(34526, 0, 8, 0, 0, 'quest 10223 kill credit'),
+(34526, 0, 15, 34539, 6, 'despawn 10223 trigger cast Explosion'),
+(34526, 1, 18, 0, 0, 'despawn 10223 trigger despawn');
 
 
+-- quest 9991
+delete from gossip_scripts where id = 7715 and command = 7;
+insert into gossip_scripts (id, delay, command, datalong, comments) values
+(7715, 105, 7, 9991, 'quest 9991 credit');
